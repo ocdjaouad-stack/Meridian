@@ -101,6 +101,22 @@ Sur fond noir, pas d'ombre grise : on travaille en **lueurs** et **filets**.
 - Une constellation par page (accueil, tissus, professionnels…) : même langage, dessin distinct.
 - Toujours `aria-hidden="true"`, jamais porteur d'information, `pointer-events:none`.
 
+### 2.8 Champs de formulaire
+
+`input`, `textarea`, `select` — module broderie, prise de rendez-vous professionnels, contact.
+
+| Propriété | Valeur |
+|---|---|
+| Fond | `--mrd-surface` (`#101013`) |
+| Bordure | `1px solid var(--mrd-ligne)` |
+| Texte | `--mrd-creme` · Inter 400 · 16 px (évite le zoom iOS) |
+| Placeholder | `--mrd-gris` — une indication, jamais un substitut de label |
+| Focus | bordure `--mrd-or` + `box-shadow: var(--mrd-focus)` |
+| Hauteur | ≥ 48 px (`textarea` : min 120 px) |
+| Rayon | `--mrd-r1` (2 px) maximum |
+
+**Règles.** Label toujours visible au-dessus du champ (Inter 500, 12 px, uppercase, letter-spacing .2em, gris chaud). Message d'erreur sous le champ concerné, jamais uniquement en tête de formulaire. `select` : `appearance:none` + chevron SVG or (trait 1.5 px). Champs obligatoires signalés.
+
 ---
 
 ## 3. Composants
@@ -112,24 +128,25 @@ Sur fond noir, pas d'ombre grise : on travaille en **lueurs** et **filets**.
 4. En-tête de section — eyebrow or + h2 serif + filet or 1 px (40 px)
 5. Filet séparateur — 1 px, dégradé or vers transparent
 6. Icônes — filaires SVG inline, trait 1.5 px, or, 24–28 px (jamais d'emoji)
+7. Champ de formulaire — input/textarea/select selon § 2.8 : fond surface, filet neutre, focus or, ≥ 48 px, rayon 2 px
 
 **Commerce**
-7. Bandeau réassurance — 4 piliers (fabrication à la commande · gants blancs · garantie · échantillons), icône + libellé
-8. Carte produit — image 4:5, nom serif, prix or, hover : zoom image 1.03 + bordure or
-9. Bloc ensemble — composition 3+2+1, prix ensemble vs pièces, économie en or
-10. Module broderie — visuel + champ de personnalisation, mention « +250 € par pièce »
-11. Galerie produit immersive — visuel principal + vignettes, fondu croisé
-12. Sélecteur de configuration — tissus, coloris, pieds ; libellés visibles, cibles ≥ 44 px
-13. Barre d'achat sticky — nom, prix, CTA ; discrète, apparition au scroll
+8. Bandeau réassurance — 4 piliers (fabrication à la commande · gants blancs · garantie · échantillons), icône + libellé
+9. Carte produit — image 4:5, nom serif, prix or, hover : zoom image 1.03 + bordure or
+10. Bloc ensemble — composition 3+2+1, prix ensemble vs pièces, économie en or
+11. Module broderie — visuel + champ de personnalisation, mention « +250 € par pièce »
+12. Galerie produit immersive — visuel principal + vignettes, fondu croisé
+13. Sélecteur de configuration — tissus, coloris, pieds ; libellés visibles, cibles ≥ 44 px
+14. Barre d'achat sticky — nom, prix, CTA ; discrète, apparition au scroll
 
 **Éditorial**
-14. Hero cinématique — plein écran, ken burns ou emblème orbital, accroche serif
-15. Compteurs discrets — chiffres serif, incrément lent à l'entrée
-16. Section savoir-faire — image parallaxe + texte court
-17. Bloc décorateurs — invitation sobre vers l'espace professionnels
-18. Final CTA — pleine largeur, constellation, un seul bouton
-19. Grille tissus — swatches par gamme, zoom au survol, CTA échantillons
-20. Emblème orbital MERIDIAN — SVG signature, parallaxe souris ≤ 3 %
+15. Hero cinématique — plein écran, ken burns ou emblème orbital, accroche serif
+16. Compteurs discrets — chiffres serif, incrément lent à l'entrée
+17. Section savoir-faire — image parallaxe + texte court
+18. Bloc décorateurs — invitation sobre vers l'espace professionnels
+19. Final CTA — pleine largeur, constellation, un seul bouton
+20. Grille tissus — swatches par gamme, zoom au survol, CTA échantillons
+21. Emblème orbital MERIDIAN — SVG signature, parallaxe souris ≤ 3 %
 
 ---
 

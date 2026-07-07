@@ -1,0 +1,554 @@
+<!-- PAGE: acceuil (body HTML complet de la page Shopify) -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   MERIDIAN — Accueil v2
+   Scope strict : #mrd-home. Aucun sélecteur global.
+   ============================================================ */
+#mrd-home{
+  --mrd-noir:#0B0B0D;
+  --mrd-surface:#101013;
+  --mrd-surface-2:#16161B;
+  --mrd-creme:#F2EDE4;
+  --mrd-gris:#9B968C;
+  --mrd-or:#C8A35F;
+  --mrd-or-clair:#E7CF94;
+  --mrd-or-sombre:#9C7B3E;
+  --mrd-grad-or:linear-gradient(135deg,#E7CF94 0%,#C8A35F 45%,#9C7B3E 100%);
+  --mrd-ligne-or:rgba(200,163,95,.28);
+  --mrd-ligne:rgba(242,237,228,.08);
+  --mrd-voile:rgba(11,11,13,.55);
+  --mrd-lueur:0 0 60px rgba(200,163,95,.08);
+  --mrd-lueur-hover:0 0 40px rgba(200,163,95,.14);
+  --mrd-focus:0 0 0 2px #0B0B0D,0 0 0 4px #C8A35F;
+  --mrd-ease-out:cubic-bezier(.22,1,.36,1);
+  --mrd-ease-inout:cubic-bezier(.65,0,.35,1);
+  --mrd-t-micro:300ms;
+  --mrd-t-reveal:900ms;
+  background:var(--mrd-noir);
+  color:var(--mrd-creme);
+  font-family:'Inter',sans-serif;
+  font-weight:300;
+  font-size:1.0625rem;
+  line-height:1.7;
+  overflow:clip;
+  -webkit-font-smoothing:antialiased;
+}
+#mrd-home *,#mrd-home *::before,#mrd-home *::after{box-sizing:border-box;margin:0;padding:0}
+#mrd-home img{display:block;max-width:100%}
+#mrd-home h1,#mrd-home h2,#mrd-home h3{font-family:'Cormorant Garamond',serif;font-weight:500;color:var(--mrd-creme)}
+#mrd-home h1{font-size:clamp(2.6rem,6vw,4.75rem);line-height:1.05;letter-spacing:.01em}
+#mrd-home h2{font-size:clamp(2rem,4vw,3.25rem);line-height:1.12}
+#mrd-home h3{font-size:clamp(1.35rem,2.2vw,1.75rem);line-height:1.2}
+#mrd-home a{color:inherit}
+#mrd-home a:focus-visible,#mrd-home button:focus-visible{outline:none;box-shadow:var(--mrd-focus)}
+
+/* --- Structure ------------------------------------------------ */
+#mrd-home .mrd-h-section{padding:clamp(6rem,14vh,10rem) clamp(1.25rem,5vw,4rem);position:relative}
+#mrd-home .mrd-h-wrap{max-width:1320px;margin:0 auto}
+#mrd-home .mrd-h-narrow{max-width:720px}
+#mrd-home .mrd-h-center{text-align:center}
+#mrd-home .mrd-h-center .mrd-h-narrow{margin-left:auto;margin-right:auto}
+#mrd-home .mrd-h-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* --- Vocabulaire commun --------------------------------------- */
+#mrd-home .mrd-h-eyebrow{font-weight:500;font-size:.72rem;letter-spacing:.35em;text-transform:uppercase;color:var(--mrd-or);margin-bottom:1.5rem}
+#mrd-home .mrd-h-rule{display:block;width:48px;height:1px;background:var(--mrd-grad-or);margin:2rem 0 0}
+#mrd-home .mrd-h-center .mrd-h-rule{margin-left:auto;margin-right:auto}
+#mrd-home .mrd-h-lead{color:var(--mrd-gris);max-width:620px;margin-top:1.75rem}
+#mrd-home .mrd-h-btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 2.4rem;background:var(--mrd-or);border:1px solid var(--mrd-or);color:#0B0B0D;font-family:'Inter',sans-serif;font-weight:500;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;text-decoration:none;text-indent:.3em;transition:box-shadow var(--mrd-t-micro) var(--mrd-ease-inout),background-color var(--mrd-t-micro) var(--mrd-ease-inout)}
+#mrd-home .mrd-h-btn:hover{background:var(--mrd-grad-or);box-shadow:var(--mrd-lueur-hover)}
+#mrd-home .mrd-h-btn--ghost{background:transparent;border-color:var(--mrd-ligne-or);color:var(--mrd-or)}
+#mrd-home .mrd-h-btn--ghost:hover{background:rgba(200,163,95,.08);border-color:var(--mrd-or);box-shadow:none}
+#mrd-home .mrd-h-link{position:relative;display:inline-block;padding:.85rem 0;color:var(--mrd-creme);font-weight:400;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;text-decoration:none}
+#mrd-home .mrd-h-link::after{content:"";position:absolute;left:0;bottom:.5rem;width:100%;height:1px;background:var(--mrd-or);transform:scaleX(.35);transform-origin:left;transition:transform var(--mrd-t-micro) var(--mrd-ease-inout)}
+#mrd-home .mrd-h-link:hover::after{transform:scaleX(1)}
+
+/* --- Révélations (contrat MERIDIAN Motion : .mrd-reveal → .mrd-in) --- */
+#mrd-home .mrd-reveal{opacity:0;transform:translateY(24px);transition:opacity var(--mrd-t-reveal) var(--mrd-ease-out),transform var(--mrd-t-reveal) var(--mrd-ease-out);transition-delay:var(--mrd-d,0ms)}
+#mrd-home .mrd-reveal.mrd-in{opacity:1;transform:none}
+
+/* --- Hero ------------------------------------------------------ */
+#mrd-home .mrd-h-hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:7rem clamp(1.25rem,5vw,4rem) 8rem}
+#mrd-home .mrd-h-hero-media{position:absolute;inset:0}
+#mrd-home .mrd-h-hero-media img{width:100%;height:100%;object-fit:cover;animation:mrd-h-kb 18s linear both}
+@keyframes mrd-h-kb{from{transform:scale(1)}to{transform:scale(1.06)}}
+#mrd-home .mrd-h-hero-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,13,.62) 0%,rgba(11,11,13,.38) 45%,var(--mrd-noir) 100%)}
+#mrd-home .mrd-h-orbits{position:absolute;top:50%;left:50%;width:min(140vw,860px);aspect-ratio:1;margin:calc(min(140vw,860px)/-2) 0 0 calc(min(140vw,860px)/-2);pointer-events:none;opacity:.85;will-change:transform}
+#mrd-home .mrd-h-orbits svg{width:100%;height:100%}
+#mrd-home .mrd-h-orb-a,#mrd-home .mrd-h-orb-b{transform-box:view-box;transform-origin:50% 50%}
+#mrd-home .mrd-h-orb-a{animation:mrd-h-rot 90s linear infinite}
+#mrd-home .mrd-h-orb-b{animation:mrd-h-rot 140s linear infinite reverse}
+@keyframes mrd-h-rot{to{transform:rotate(360deg)}}
+#mrd-home .mrd-h-star{animation:mrd-h-twinkle 9s var(--mrd-ease-inout) infinite}
+#mrd-home .mrd-h-star:nth-of-type(2n){animation-delay:3s}
+#mrd-home .mrd-h-star:nth-of-type(3n){animation-delay:6s}
+@keyframes mrd-h-twinkle{0%,100%{opacity:.2}50%{opacity:.65}}
+#mrd-home .mrd-h-hero-inner{position:relative;z-index:2;max-width:860px}
+#mrd-home .mrd-h-hero-inner .mrd-h-lead{margin-left:auto;margin-right:auto}
+#mrd-home .mrd-h-cta{display:flex;flex-wrap:wrap;gap:1rem 2.5rem;align-items:center;justify-content:center;margin-top:3rem}
+#mrd-home .mrd-h-scroll{position:absolute;bottom:2rem;left:50%;width:1px;height:60px;margin-left:-.5px;background:linear-gradient(to bottom,var(--mrd-or),transparent);animation:mrd-h-pulse 3.5s var(--mrd-ease-inout) infinite;z-index:2}
+@keyframes mrd-h-pulse{0%,100%{opacity:.9}50%{opacity:.25}}
+
+/* --- Bandeau réassurance --------------------------------------- */
+#mrd-home .mrd-h-trust{background:var(--mrd-surface);border-top:1px solid var(--mrd-ligne);border-bottom:1px solid var(--mrd-ligne);padding:clamp(3rem,7vh,4.5rem) clamp(1.25rem,5vw,4rem)}
+#mrd-home .mrd-h-trust ul{list-style:none;display:grid;grid-template-columns:1fr;gap:2.5rem;max-width:1320px;margin:0 auto}
+#mrd-home .mrd-h-trust li{text-align:center}
+#mrd-home .mrd-h-trust svg{width:28px;height:28px;color:var(--mrd-or);margin:0 auto 1rem}
+#mrd-home .mrd-h-trust strong{display:block;font-weight:500;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mrd-creme);margin-bottom:.5rem}
+#mrd-home .mrd-h-trust p{font-size:.9rem;color:var(--mrd-gris)}
+@media(min-width:640px){#mrd-home .mrd-h-trust ul{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){#mrd-home .mrd-h-trust ul{grid-template-columns:repeat(4,1fr)}}
+
+/* --- Pièces signatures ------------------------------------------ */
+#mrd-home .mrd-h-sig-head{margin-bottom:clamp(3rem,7vh,4.5rem)}
+#mrd-home .mrd-h-sig-grid{display:grid;grid-template-columns:1fr;gap:1.25rem;list-style:none}
+#mrd-home .mrd-h-card{display:block;text-decoration:none;background:var(--mrd-surface);border:1px solid var(--mrd-ligne);transition:border-color var(--mrd-t-micro) var(--mrd-ease-inout),box-shadow var(--mrd-t-micro) var(--mrd-ease-inout)}
+#mrd-home .mrd-h-card:hover{border-color:var(--mrd-ligne-or);box-shadow:var(--mrd-lueur-hover)}
+#mrd-home .mrd-h-card figure{aspect-ratio:4/5;overflow:hidden}
+#mrd-home .mrd-h-card img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--mrd-ease-out)}
+#mrd-home .mrd-h-card:hover img{transform:scale(1.03)}
+#mrd-home .mrd-h-card-body{padding:1.5rem 1.5rem 1.75rem}
+#mrd-home .mrd-h-card-body h3{margin-bottom:.35rem}
+#mrd-home .mrd-h-card-body p{font-size:.9rem;color:var(--mrd-gris)}
+#mrd-home .mrd-h-price{display:block;font-family:'Cormorant Garamond',serif;font-weight:500;font-variant-numeric:lining-nums;font-size:1.3rem;color:var(--mrd-or);margin-top:1rem}
+#mrd-home .mrd-h-card-more{position:relative;display:inline-block;margin-top:1.25rem;font-size:.68rem;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:var(--mrd-creme)}
+#mrd-home .mrd-h-card-more::after{content:"";position:absolute;left:0;bottom:-.4rem;width:100%;height:1px;background:var(--mrd-or);transform:scaleX(.35);transform-origin:left;transition:transform var(--mrd-t-micro) var(--mrd-ease-inout)}
+#mrd-home .mrd-h-card:hover .mrd-h-card-more::after{transform:scaleX(1)}
+#mrd-home .mrd-h-sig-note{margin-top:2.5rem;font-size:.85rem;color:var(--mrd-gris);text-align:center}
+#mrd-home .mrd-h-sig-cta{text-align:center;margin-top:2rem}
+@media(min-width:640px){#mrd-home .mrd-h-sig-grid{grid-template-columns:repeat(2,1fr);gap:1.5rem}}
+@media(min-width:1024px){
+  #mrd-home .mrd-h-sig-grid{grid-template-columns:repeat(6,1fr)}
+  #mrd-home .mrd-h-sig-grid>li:nth-child(-n+2){grid-column:span 3}
+  #mrd-home .mrd-h-sig-grid>li:nth-child(n+3){grid-column:span 2}
+}
+
+/* --- L'ensemble parfait ------------------------------------------ */
+#mrd-home .mrd-h-ens{background:var(--mrd-surface)}
+#mrd-home .mrd-h-ens-figure{position:relative;overflow:hidden;aspect-ratio:4/3;margin-bottom:clamp(3rem,8vh,5rem)}
+#mrd-home .mrd-h-ens-figure img,#mrd-home .mrd-h-atelier-figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.12);will-change:transform}
+#mrd-home .mrd-h-offers{list-style:none;display:grid;grid-template-columns:1fr;gap:1.25rem;margin-top:clamp(3rem,7vh,4.5rem)}
+#mrd-home .mrd-h-offer{background:var(--mrd-noir);border:1px solid var(--mrd-ligne);padding:2.25rem 2rem;text-align:center;transition:border-color var(--mrd-t-micro) var(--mrd-ease-inout),box-shadow var(--mrd-t-micro) var(--mrd-ease-inout)}
+#mrd-home .mrd-h-offer:hover{border-color:var(--mrd-ligne-or);box-shadow:var(--mrd-lueur-hover)}
+#mrd-home .mrd-h-offer h3{font-size:1.5rem;margin-bottom:.4rem}
+#mrd-home .mrd-h-offer-compo{font-size:.8rem;color:var(--mrd-gris);letter-spacing:.06em}
+#mrd-home .mrd-h-offer-price{font-family:'Cormorant Garamond',serif;font-weight:500;font-variant-numeric:lining-nums;font-size:2.25rem;color:var(--mrd-or);margin-top:1.5rem}
+#mrd-home .mrd-h-offer-vs{font-size:.82rem;color:var(--mrd-gris);margin-top:.35rem}
+#mrd-home .mrd-h-offer-eco{margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--mrd-ligne);font-size:.72rem;font-weight:500;letter-spacing:.25em;text-transform:uppercase;color:var(--mrd-or)}
+#mrd-home .mrd-h-ens-note{margin-top:2.5rem;font-size:.85rem;color:var(--mrd-gris);text-align:center}
+#mrd-home .mrd-h-ens-cta{text-align:center;margin-top:2rem}
+@media(min-width:750px){#mrd-home .mrd-h-ens-figure{aspect-ratio:16/7}}
+@media(min-width:900px){#mrd-home .mrd-h-offers{grid-template-columns:repeat(3,1fr);gap:1.5rem}}
+
+/* --- Broderie ------------------------------------------------------ */
+#mrd-home .mrd-h-duo{display:grid;grid-template-columns:1fr;gap:clamp(2.5rem,6vw,5rem);align-items:center}
+#mrd-home .mrd-h-duo-figure{position:relative;overflow:hidden;aspect-ratio:4/5;border:1px solid var(--mrd-ligne)}
+#mrd-home .mrd-h-duo-figure img{width:100%;height:100%;object-fit:cover}
+#mrd-home .mrd-h-mono{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(3rem,6vw,4.25rem);letter-spacing:.12em;background:var(--mrd-grad-or);-webkit-background-clip:text;background-clip:text;color:transparent;margin-top:2.25rem}
+#mrd-home .mrd-h-mono-caption{font-size:.8rem;color:var(--mrd-gris);margin-top:.5rem}
+#mrd-home .mrd-h-brod-price{display:inline-block;margin-top:2rem;padding:.6rem 1.2rem;border:1px solid var(--mrd-ligne-or);font-size:.72rem;font-weight:500;letter-spacing:.25em;text-transform:uppercase;color:var(--mrd-or)}
+#mrd-home .mrd-h-brod .mrd-h-link{margin-top:1.75rem}
+@media(min-width:900px){#mrd-home .mrd-h-duo{grid-template-columns:1fr 1.05fr}}
+
+/* --- Savoir-faire --------------------------------------------------- */
+#mrd-home .mrd-h-atelier{background:var(--mrd-surface)}
+#mrd-home .mrd-h-atelier-figure{position:relative;overflow:hidden;aspect-ratio:4/5;border:1px solid var(--mrd-ligne)}
+#mrd-home .mrd-h-atelier p+p{margin-top:1.25rem}
+#mrd-home .mrd-h-stats{display:flex;flex-wrap:wrap;gap:2.5rem 3.5rem;margin-top:3rem}
+#mrd-home .mrd-h-stat-num{display:block;font-family:'Cormorant Garamond',serif;font-weight:500;font-variant-numeric:lining-nums;font-size:2.6rem;line-height:1;color:var(--mrd-or)}
+#mrd-home .mrd-h-stat-label{display:block;margin-top:.6rem;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mrd-gris)}
+@media(min-width:900px){#mrd-home .mrd-h-atelier .mrd-h-duo{grid-template-columns:1.05fr 1fr}}
+
+/* --- Espace professionnels ------------------------------------------ */
+#mrd-home .mrd-h-pro-panel{max-width:880px;margin:0 auto;padding:clamp(3rem,7vw,5rem);background:var(--mrd-surface);border:1px solid var(--mrd-ligne);text-align:center;box-shadow:var(--mrd-lueur)}
+#mrd-home .mrd-h-pro-panel .mrd-h-lead{margin-left:auto;margin-right:auto}
+#mrd-home .mrd-h-pro-panel .mrd-h-btn--ghost{margin-top:2.5rem}
+
+/* --- Final CTA -------------------------------------------------------- */
+#mrd-home .mrd-h-final{overflow:hidden}
+#mrd-home .mrd-h-final-sky{position:absolute;inset:0;pointer-events:none}
+#mrd-home .mrd-h-final-sky svg{width:100%;height:100%}
+#mrd-home .mrd-h-final-ring{transform-box:view-box;transform-origin:50% 50%;animation:mrd-h-rot 120s linear infinite}
+#mrd-home .mrd-h-final-inner{position:relative;z-index:2}
+#mrd-home .mrd-h-final .mrd-h-btn{margin-top:3rem}
+#mrd-home .mrd-h-final .mrd-h-link{margin-top:1.25rem}
+#mrd-home .mrd-h-final-links{display:flex;flex-direction:column;align-items:center}
+
+/* --- Reduced motion : tout est visible, rien ne bouge ----------------- */
+@media(prefers-reduced-motion:reduce){
+  #mrd-home *,#mrd-home *::before,#mrd-home *::after{animation:none!important;transition:none!important}
+  #mrd-home .mrd-reveal{opacity:1!important;transform:none!important}
+  #mrd-home .mrd-h-ens-figure img,#mrd-home .mrd-h-atelier-figure img{transform:none!important}
+  #mrd-home .mrd-h-orbits{transform:none!important}
+}
+</style>
+
+<div id="mrd-home">
+
+  <!-- ================= HERO ================= -->
+  <section class="mrd-h-hero" aria-label="House of Meridian — canapés tapissés à la commande">
+    <div class="mrd-h-hero-media">
+      <img src="{{IMAGE_1}}" alt="Canapé Chester capitonné dans un salon nocturne, éclairé d'une lumière dorée" fetchpriority="high">
+    </div>
+    <div class="mrd-h-hero-veil" aria-hidden="true"></div>
+
+    <div class="mrd-h-orbits" aria-hidden="true" data-mrd-mouse>
+      <svg viewBox="0 0 600 600" fill="none">
+        <g class="mrd-h-orb-a" opacity=".32">
+          <ellipse cx="300" cy="300" rx="272" ry="104" stroke="#C8A35F" stroke-width="1" transform="rotate(-16 300 300)"/>
+          <circle cx="560" cy="230" r="2" fill="#E7CF94"/>
+        </g>
+        <g class="mrd-h-orb-b" opacity=".2">
+          <ellipse cx="300" cy="300" rx="216" ry="150" stroke="#C8A35F" stroke-width="1" transform="rotate(24 300 300)"/>
+          <circle cx="118" cy="392" r="1.6" fill="#E7CF94"/>
+        </g>
+        <circle class="mrd-h-star" cx="92" cy="128" r="1.4" fill="#F2EDE4" opacity=".4"/>
+        <circle class="mrd-h-star" cx="498" cy="88" r="1.1" fill="#F2EDE4" opacity=".35"/>
+        <circle class="mrd-h-star" cx="532" cy="470" r="1.4" fill="#F2EDE4" opacity=".3"/>
+        <circle class="mrd-h-star" cx="66" cy="474" r="1" fill="#F2EDE4" opacity=".35"/>
+      </svg>
+    </div>
+
+    <div class="mrd-h-hero-inner">
+      <p class="mrd-h-eyebrow mrd-reveal">House of Meridian</p>
+      <h1 class="mrd-reveal" style="--mrd-d:120ms">L'art du canapé,<br>à votre mesure.</h1>
+      <p class="mrd-h-lead mrd-reveal" style="--mrd-d:240ms">Cinq pièces signatures, tapissées à la commande dans nos ateliers et livrées en gants blancs, partout en France.</p>
+      <div class="mrd-h-cta mrd-reveal" style="--mrd-d:360ms">
+        <a class="mrd-h-btn" href="/collections/canapes">Découvrir la collection</a>
+        <a class="mrd-h-link" href="/pages/tissus">Recevoir des échantillons</a>
+      </div>
+    </div>
+
+    <div class="mrd-h-scroll" aria-hidden="true"></div>
+  </section>
+
+  <!-- ================= RÉASSURANCE ================= -->
+  <section class="mrd-h-trust">
+    <h2 class="mrd-h-sr">Les engagements de la maison</h2>
+    <ul>
+      <li class="mrd-reveal">
+        <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="16" cy="7" r="2.2"/><path d="M15 9 9.5 26M17 9l5.5 17M9.5 26q6.5 3 13 0"/></svg>
+        <strong>Fabrication à la commande</strong>
+        <p>Chaque pièce est produite pour son client.</p>
+      </li>
+      <li class="mrd-reveal" style="--mrd-d:120ms">
+        <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10h14v11h-14zM17.5 14h5.5l3.5 4v3h-9"/><circle cx="8.5" cy="23.5" r="2"/><circle cx="22" cy="23.5" r="2"/></svg>
+        <strong>Livraison en gants blancs</strong>
+        <p>Incluse, jusqu'à la pièce de votre choix.</p>
+      </li>
+      <li class="mrd-reveal" style="--mrd-d:240ms">
+        <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4l9 3.5v7c0 6-4 10.5-9 13-5-2.5-9-7-9-13v-7z"/><path d="M12 15.5l3 3 5-6"/></svg>
+        <strong>Garantie fabricant</strong>
+        <p>Nos ateliers s'engagent sur la durée.</p>
+      </li>
+      <li class="mrd-reveal" style="--mrd-d:360ms">
+        <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4l10 6-10 6-10-6zM6 16l10 6 10-6M6 21l10 6 10-6"/></svg>
+        <strong>Échantillons à domicile</strong>
+        <p>Les tissus se choisissent à la lumière de chez vous.</p>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ================= PIÈCES SIGNATURES ================= -->
+  <section class="mrd-h-section">
+    <div class="mrd-h-wrap">
+      <header class="mrd-h-sig-head mrd-h-center mrd-reveal">
+        <p class="mrd-h-eyebrow">La collection</p>
+        <h2>Pièces signatures</h2>
+        <span class="mrd-h-rule" aria-hidden="true"></span>
+        <p class="mrd-h-lead mrd-h-narrow">Cinq silhouettes, une même exigence. Chaque modèle se décline en canapé trois places, deux places ou fauteuil, dans le tissu et la teinte que vous choisirez.</p>
+      </header>
+
+      <ul class="mrd-h-sig-grid">
+        <li class="mrd-reveal">
+          <a class="mrd-h-card" href="/products/chester">
+            <figure><img src="{{IMAGE_2}}" alt="Canapé Chester, capitonnage profond et accoudoirs roulés" loading="lazy" decoding="async"></figure>
+            <div class="mrd-h-card-body">
+              <h3>Chester</h3>
+              <p>Le capitonné glamour, signature des grands salons.</p>
+              <span class="mrd-h-price">À partir de 1&nbsp;000&nbsp;€</span>
+              <span class="mrd-h-card-more">Découvrir</span>
+            </div>
+          </a>
+        </li>
+        <li class="mrd-reveal" style="--mrd-d:120ms">
+          <a class="mrd-h-card" href="/products/aksor">
+            <figure><img src="{{IMAGE_3}}" alt="Canapé Aksor, lignes droites et assise profonde" loading="lazy" decoding="async"></figure>
+            <div class="mrd-h-card-body">
+              <h3>Aksor</h3>
+              <p>Lignes tendues, assise profonde.</p>
+              <span class="mrd-h-price">À partir de 1&nbsp;000&nbsp;€</span>
+              <span class="mrd-h-card-more">Découvrir</span>
+            </div>
+          </a>
+        </li>
+        <li class="mrd-reveal" style="--mrd-d:90ms">
+          <a class="mrd-h-card" href="/products/silvan">
+            <figure><img src="{{IMAGE_4}}" alt="Canapé Silvan, dossier enveloppant aux courbes douces" loading="lazy" decoding="async"></figure>
+            <div class="mrd-h-card-body">
+              <h3>Silvan</h3>
+              <p>La rondeur douce, l'accueil généreux.</p>
+              <span class="mrd-h-price">À partir de 1&nbsp;000&nbsp;€</span>
+              <span class="mrd-h-card-more">Découvrir</span>
+            </div>
+          </a>
+        </li>
+        <li class="mrd-reveal" style="--mrd-d:180ms">
+          <a class="mrd-h-card" href="/products/sidney">
+            <figure><img src="{{IMAGE_5}}" alt="Canapé Sidney, silhouette graphique aux proportions précises" loading="lazy" decoding="async"></figure>
+            <div class="mrd-h-card-body">
+              <h3>Sidney</h3>
+              <p>Une élégance graphique, presque architecturale.</p>
+              <span class="mrd-h-price">À partir de 1&nbsp;000&nbsp;€</span>
+              <span class="mrd-h-card-more">Découvrir</span>
+            </div>
+          </a>
+        </li>
+        <li class="mrd-reveal" style="--mrd-d:270ms">
+          <a class="mrd-h-card" href="/products/eva">
+            <figure><img src="{{IMAGE_6}}" alt="Canapé d'angle Eva, grande composition en L" loading="lazy" decoding="async"></figure>
+            <div class="mrd-h-card-body">
+              <h3>Eva</h3>
+              <p>Le grand angle, pour les vastes horizons.</p>
+              <span class="mrd-h-price">De 3&nbsp;900&nbsp;€ à 5&nbsp;900&nbsp;€</span>
+              <span class="mrd-h-card-more">Découvrir</span>
+            </div>
+          </a>
+        </li>
+      </ul>
+
+      <p class="mrd-h-sig-note mrd-reveal">Canapé 3 places 2&nbsp;200&nbsp;€ · Canapé 2 places 1&nbsp;600&nbsp;€ · Fauteuil 1&nbsp;000&nbsp;€</p>
+      <div class="mrd-h-sig-cta mrd-reveal">
+        <a class="mrd-h-link" href="/collections/canapes">Voir toute la collection</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= L'ENSEMBLE PARFAIT ================= -->
+  <section class="mrd-h-ens mrd-h-section">
+    <div class="mrd-h-wrap">
+      <figure class="mrd-h-ens-figure mrd-reveal">
+        <img src="{{IMAGE_7}}" alt="Ensemble Meridian au complet : canapé trois places, deux places et fauteuil accordés dans le même tissu" loading="lazy" decoding="async" data-mrd-plx>
+      </figure>
+
+      <header class="mrd-h-center mrd-reveal">
+        <p class="mrd-h-eyebrow">L'offre de la maison</p>
+        <h2>L'ensemble parfait</h2>
+        <span class="mrd-h-rule" aria-hidden="true"></span>
+        <p class="mrd-h-lead mrd-h-narrow">Un salon s'accorde comme une partition : même tissu, même teinte, mêmes finitions. En choisissant l'ensemble, vous composez la pièce entière — et la maison ajuste le prix.</p>
+      </header>
+
+      <ul class="mrd-h-offers">
+        <li class="mrd-h-offer mrd-reveal">
+          <h3>3&nbsp;·&nbsp;2&nbsp;·&nbsp;1</h3>
+          <p class="mrd-h-offer-compo">Canapé 3 places, 2 places et fauteuil</p>
+          <p class="mrd-h-offer-price">4&nbsp;500&nbsp;€</p>
+          <p class="mrd-h-offer-vs">4&nbsp;800&nbsp;€ en pièces séparées</p>
+          <p class="mrd-h-offer-eco">Économie · 300&nbsp;€</p>
+        </li>
+        <li class="mrd-h-offer mrd-reveal" style="--mrd-d:120ms">
+          <h3>3&nbsp;·&nbsp;3&nbsp;·&nbsp;1</h3>
+          <p class="mrd-h-offer-compo">Deux canapés 3 places et fauteuil</p>
+          <p class="mrd-h-offer-price">5&nbsp;200&nbsp;€</p>
+          <p class="mrd-h-offer-vs">5&nbsp;400&nbsp;€ en pièces séparées</p>
+          <p class="mrd-h-offer-eco">Économie · 200&nbsp;€</p>
+        </li>
+        <li class="mrd-h-offer mrd-reveal" style="--mrd-d:240ms">
+          <h3>3&nbsp;·&nbsp;3&nbsp;·&nbsp;1&nbsp;·&nbsp;1</h3>
+          <p class="mrd-h-offer-compo">Deux canapés 3 places et deux fauteuils</p>
+          <p class="mrd-h-offer-price">5&nbsp;900&nbsp;€</p>
+          <p class="mrd-h-offer-vs">6&nbsp;400&nbsp;€ en pièces séparées</p>
+          <p class="mrd-h-offer-eco">Économie · 500&nbsp;€</p>
+        </li>
+      </ul>
+
+      <p class="mrd-h-ens-note mrd-reveal">Paiement en plusieurs fois disponible · Canapés d'angle Eva de 3&nbsp;900&nbsp;€ à 5&nbsp;900&nbsp;€</p>
+      <div class="mrd-h-ens-cta mrd-reveal">
+        <a class="mrd-h-btn mrd-h-btn--ghost" href="/collections/canapes">Composer votre ensemble</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BRODERIE ================= -->
+  <section class="mrd-h-section mrd-h-brod">
+    <div class="mrd-h-wrap mrd-h-duo">
+      <figure class="mrd-h-duo-figure mrd-reveal">
+        <img src="{{IMAGE_8}}" alt="Monogramme brodé au fil doré sur l'accoudoir d'un canapé" loading="lazy" decoding="async">
+      </figure>
+      <div class="mrd-reveal" style="--mrd-d:150ms">
+        <p class="mrd-h-eyebrow">La signature</p>
+        <h2>Chaque pièce porte votre signature</h2>
+        <span class="mrd-h-rule" aria-hidden="true"></span>
+        <p class="mrd-h-lead">Des initiales, une date, un mot tenu secret. Brodé au fil dans nos ateliers, à l'endroit exact que vous aurez choisi, votre monogramme fait de chaque pièce un exemplaire unique.</p>
+        <p class="mrd-h-mono" aria-hidden="true">A&hairsp;·&hairsp;M</p>
+        <p class="mrd-h-mono-caption">Votre monogramme, dessiné puis brodé.</p>
+        <p class="mrd-h-brod-price">Broderie personnalisée · +250&nbsp;€ par pièce</p>
+        <br>
+        <a class="mrd-h-link" href="/collections/canapes">Choisir sa broderie</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SAVOIR-FAIRE ================= -->
+  <section class="mrd-h-atelier mrd-h-section">
+    <div class="mrd-h-wrap mrd-h-duo">
+      <div class="mrd-reveal">
+        <p class="mrd-h-eyebrow">L'atelier</p>
+        <h2>Tapissé à la commande, dans nos ateliers</h2>
+        <span class="mrd-h-rule" aria-hidden="true"></span>
+        <p class="mrd-h-lead">Aucun stock, aucune série. Votre commande met l'atelier en mouvement : la coupe, la couture, le capitonnage, les finitions — puis la livraison en gants blancs, jusqu'à la pièce de votre choix.</p>
+        <p class="mrd-h-lead">Ce temps-là ne se compresse pas. Il se respecte.</p>
+        <dl class="mrd-h-stats">
+          <div>
+            <dt class="mrd-h-sr">Part de la production fabriquée à la commande</dt>
+            <dd><span class="mrd-h-stat-num" data-mrd-count="100" data-mrd-suffix="&nbsp;%">0&nbsp;%</span><span class="mrd-h-stat-label">à la commande</span></dd>
+          </div>
+          <div>
+            <dt class="mrd-h-sr">Nombre de pièces signatures</dt>
+            <dd><span class="mrd-h-stat-num" data-mrd-count="5">0</span><span class="mrd-h-stat-label">pièces signatures</span></dd>
+          </div>
+          <div>
+            <dt class="mrd-h-sr">Nombre de pièces en stock</dt>
+            <dd><span class="mrd-h-stat-num">0</span><span class="mrd-h-stat-label">pièce en stock</span></dd>
+          </div>
+        </dl>
+      </div>
+      <figure class="mrd-h-atelier-figure mrd-reveal" style="--mrd-d:150ms">
+        <img src="{{IMAGE_9}}" alt="Mains d'un tapissier au travail sur une assise, dans l'atelier" loading="lazy" decoding="async" data-mrd-plx>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ================= ESPACE PROFESSIONNELS ================= -->
+  <section class="mrd-h-section">
+    <div class="mrd-h-pro-panel mrd-reveal">
+      <p class="mrd-h-eyebrow">Espace professionnels</p>
+      <h2>Décorateurs &amp; architectes d'intérieur</h2>
+      <span class="mrd-h-rule" aria-hidden="true"></span>
+      <p class="mrd-h-lead">Un interlocuteur dédié, des conditions réservées aux professionnels et un accompagnement de vos projets — de la sélection des tissus à la livraison sur site.</p>
+      <a class="mrd-h-btn mrd-h-btn--ghost" href="/pages/professionnels">Découvrir l'espace professionnels</a>
+    </div>
+  </section>
+
+  <!-- ================= FINAL CTA ================= -->
+  <section class="mrd-h-final mrd-h-section mrd-h-center">
+    <div class="mrd-h-final-sky" aria-hidden="true">
+      <svg viewBox="0 0 1200 500" fill="none" preserveAspectRatio="xMidYMid slice">
+        <g class="mrd-h-final-ring" opacity=".22">
+          <ellipse cx="600" cy="250" rx="520" ry="150" stroke="#C8A35F" stroke-width="1" transform="rotate(-8 600 250)"/>
+        </g>
+        <circle class="mrd-h-star" cx="180" cy="110" r="1.4" fill="#F2EDE4" opacity=".4"/>
+        <circle class="mrd-h-star" cx="980" cy="90" r="1.2" fill="#F2EDE4" opacity=".35"/>
+        <circle class="mrd-h-star" cx="1080" cy="330" r="1.5" fill="#F2EDE4" opacity=".3"/>
+        <circle class="mrd-h-star" cx="120" cy="380" r="1" fill="#F2EDE4" opacity=".35"/>
+        <circle class="mrd-h-star" cx="640" cy="60" r="1.2" fill="#F2EDE4" opacity=".4"/>
+      </svg>
+    </div>
+    <div class="mrd-h-final-inner mrd-h-wrap mrd-reveal">
+      <p class="mrd-h-eyebrow">House of Meridian</p>
+      <h2>Il ne manque que le vôtre.</h2>
+      <p class="mrd-h-lead mrd-h-narrow" style="margin-left:auto;margin-right:auto">Chaque canapé Meridian naît d'une commande. Commencez par un tissu, une teinte — le reste suivra.</p>
+      <div class="mrd-h-final-links">
+        <a class="mrd-h-btn" href="/collections/canapes">Composer votre canapé</a>
+        <a class="mrd-h-link" href="/pages/tissus">Échantillons à domicile</a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var root=document.getElementById('mrd-home');
+  if(!root)return;
+  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var desktop=window.matchMedia('(min-width: 750px)').matches;
+
+  /* --- Révélations : contrat .mrd-reveal → .mrd-in.
+     Le moteur global MERIDIAN Motion les gère s'il est présent ;
+     cet observateur scopé sert de garantie (ajout idempotent). --- */
+  var toReveal=Array.prototype.slice.call(root.querySelectorAll('.mrd-reveal'));
+  if(reduced||!('IntersectionObserver' in window)){
+    toReveal.forEach(function(el){el.classList.add('mrd-in');});
+  }else{
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('mrd-in');io.unobserve(e.target);}
+      });
+    },{threshold:.15,rootMargin:'0px 0px -8% 0px'});
+    toReveal.forEach(function(el){io.observe(el);});
+  }
+
+  /* --- Compteurs discrets --- */
+  var nums=Array.prototype.slice.call(root.querySelectorAll('[data-mrd-count]'));
+  function setNum(el,v){el.innerHTML=v+(el.getAttribute('data-mrd-suffix')||'');}
+  if(reduced||!('IntersectionObserver' in window)){
+    nums.forEach(function(el){setNum(el,parseInt(el.getAttribute('data-mrd-count'),10));});
+  }else{
+    var ioN=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(!e.isIntersecting)return;
+        ioN.unobserve(e.target);
+        var el=e.target,target=parseInt(el.getAttribute('data-mrd-count'),10),t0=null;
+        function step(ts){
+          if(t0===null)t0=ts;
+          var p=Math.min((ts-t0)/1400,1),eased=1-Math.pow(1-p,3);
+          setNum(el,Math.round(target*eased));
+          if(p<1)requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    },{threshold:.4});
+    nums.forEach(function(el){ioN.observe(el);});
+  }
+
+  /* --- Parallaxe souris sur l'emblème orbital (desktop, pointeur fin) --- */
+  var orb=root.querySelector('[data-mrd-mouse]');
+  var hero=root.querySelector('.mrd-h-hero');
+  if(orb&&hero&&!reduced&&desktop&&window.matchMedia('(pointer: fine)').matches){
+    var tx=0,ty=0,cx=0,cy=0,rafId=null;
+    function loop(){
+      cx+=(tx-cx)*.06;cy+=(ty-cy)*.06;
+      orb.style.transform='translate3d('+cx.toFixed(2)+'px,'+cy.toFixed(2)+'px,0)';
+      if(Math.abs(tx-cx)>.05||Math.abs(ty-cy)>.05){rafId=requestAnimationFrame(loop);}
+      else{rafId=null;}
+    }
+    hero.addEventListener('mousemove',function(ev){
+      var r=hero.getBoundingClientRect();
+      tx=((ev.clientX-r.left)/r.width-.5)*24;
+      ty=((ev.clientY-r.top)/r.height-.5)*16;
+      if(rafId===null)rafId=requestAnimationFrame(loop);
+    },{passive:true});
+    hero.addEventListener('mouseleave',function(){
+      tx=0;ty=0;
+      if(rafId===null)rafId=requestAnimationFrame(loop);
+    },{passive:true});
+  }
+
+  /* --- Parallaxe scroll léger sur les grandes images marquées data-mrd-plx --- */
+  var plx=Array.prototype.slice.call(root.querySelectorAll('[data-mrd-plx]'));
+  if(plx.length&&!reduced&&desktop){
+    var ticking=false;
+    function update(){
+      ticking=false;
+      var vh=window.innerHeight;
+      plx.forEach(function(img){
+        var r=img.parentElement.getBoundingClientRect();
+        if(r.bottom<0||r.top>vh)return;
+        var p=(r.top+r.height/2-vh/2)/vh;
+        img.style.transform='translate3d(0,'+(p*-6).toFixed(2)+'%,0) scale(1.12)';
+      });
+    }
+    window.addEventListener('scroll',function(){
+      if(!ticking){ticking=true;requestAnimationFrame(update);}
+    },{passive:true});
+    update();
+  }
+})();
+</script>
