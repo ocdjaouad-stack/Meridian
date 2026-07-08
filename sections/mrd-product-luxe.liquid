@@ -1,0 +1,452 @@
+{% comment %}
+  MERIDIAN — Produit luxe (sections/mrd-product-luxe.liquid)
+  Section additionnelle à placer SOUS la fiche produit existante (thème Horizon).
+  Contenu : module broderie (ajout AJAX du produit broderie au panier),
+  bandeau réassurance 4 piliers, bloc « L'atelier ».
+  Autonome : CSS scopé .mrd-pl, JS vanilla, aucun asset externe.
+{% endcomment %}
+
+{%- liquid
+  assign brod = all_products[section.settings.broderie_handle]
+  assign brod_variant = brod.selected_or_first_available_variant
+-%}
+
+{% style %}
+  .mrd-pl{
+    --mrd-noir:#0B0B0D;
+    --mrd-surface:#101013;
+    --mrd-creme:#F2EDE4;
+    --mrd-gris:#9B968C;
+    --mrd-or:#C8A35F;
+    --mrd-grad-or:linear-gradient(135deg,#E7CF94 0%,#C8A35F 45%,#9C7B3E 100%);
+    --mrd-ligne-or:rgba(200,163,95,.28);
+    --mrd-ligne:rgba(242,237,228,.08);
+    --mrd-lueur-hover:0 0 40px rgba(200,163,95,.14);
+    --mrd-focus:0 0 0 2px #0B0B0D,0 0 0 4px #C8A35F;
+    --mrd-ease-out:cubic-bezier(.22,1,.36,1);
+    --mrd-ease-inout:cubic-bezier(.65,0,.35,1);
+    background:var(--mrd-noir);
+    color:var(--mrd-creme);
+    font-family:'Inter',sans-serif;
+    font-weight:300;
+    font-size:1rem;
+    line-height:1.7;
+    overflow:clip;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mrd-pl *,.mrd-pl *::before,.mrd-pl *::after{box-sizing:border-box;margin:0;padding:0}
+  .mrd-pl img,.mrd-pl svg{display:block;max-width:100%}
+  .mrd-pl h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(1.8rem,3.4vw,2.75rem);line-height:1.12;color:var(--mrd-creme)}
+  .mrd-pl a{color:inherit}
+  .mrd-pl a:focus-visible,.mrd-pl button:focus-visible,.mrd-pl input:focus-visible,.mrd-pl select:focus-visible{outline:none;box-shadow:var(--mrd-focus)}
+  .mrd-pl .mrd-pl-wrap{max-width:1320px;margin:0 auto;padding:clamp(3.5rem,9vh,6.5rem) clamp(1.25rem,5vw,4rem)}
+  .mrd-pl .mrd-pl-eyebrow{font-weight:500;font-size:.72rem;letter-spacing:.35em;text-transform:uppercase;color:var(--mrd-or);margin-bottom:1.25rem}
+  .mrd-pl .mrd-pl-rule{display:block;width:48px;height:1px;background:var(--mrd-grad-or);margin-top:1.75rem}
+  .mrd-pl .mrd-pl-lead{color:var(--mrd-gris);max-width:560px;margin-top:1.5rem}
+  .mrd-pl .mrd-pl-lead p+p{margin-top:1rem}
+  .mrd-pl .mrd-pl-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+  /* Révélations (contrat MERIDIAN Motion : .mrd-reveal → .mrd-in) */
+  .mrd-pl .mrd-reveal{opacity:0;transform:translateY(24px);transition:opacity .9s var(--mrd-ease-out),transform .9s var(--mrd-ease-out);transition-delay:var(--mrd-d,0ms)}
+  .mrd-pl .mrd-reveal.mrd-in{opacity:1;transform:none}
+
+  /* --- Module broderie ------------------------------------------- */
+  .mrd-pl .mrd-pl-brod{border:1px solid var(--mrd-ligne);background:var(--mrd-noir);display:grid;grid-template-columns:1fr;gap:clamp(2rem,5vw,4rem);padding:clamp(2rem,5vw,4rem)}
+  .mrd-pl .mrd-pl-brod-price{display:inline-block;margin-top:1.75rem;padding:.6rem 1.2rem;border:1px solid var(--mrd-ligne-or);font-size:.72rem;font-weight:500;letter-spacing:.25em;text-transform:uppercase;color:var(--mrd-or)}
+  .mrd-pl .mrd-pl-field{margin-bottom:1.5rem}
+  .mrd-pl .mrd-pl-label{display:block;font-weight:500;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mrd-gris);margin-bottom:.6rem}
+  .mrd-pl .mrd-pl-input,.mrd-pl .mrd-pl-select{width:100%;min-height:48px;padding:.75rem 1rem;background:var(--mrd-surface);border:1px solid var(--mrd-ligne);border-radius:2px;color:var(--mrd-creme);font-family:'Inter',sans-serif;font-weight:400;font-size:1rem;line-height:1.4;transition:border-color .3s var(--mrd-ease-inout)}
+  .mrd-pl .mrd-pl-input::placeholder{color:var(--mrd-gris);opacity:1}
+  .mrd-pl .mrd-pl-input:focus,.mrd-pl .mrd-pl-select:focus{border-color:var(--mrd-or)}
+  .mrd-pl .mrd-pl-select{appearance:none;-webkit-appearance:none;padding-right:2.75rem;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23C8A35F' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;cursor:pointer}
+  .mrd-pl .mrd-pl-help{font-size:.82rem;color:var(--mrd-gris);margin-top:.5rem}
+  .mrd-pl .mrd-pl-error{display:none;font-size:.85rem;font-weight:400;color:var(--mrd-creme);border-left:2px solid var(--mrd-or);padding-left:.75rem;margin-top:.6rem}
+  .mrd-pl .mrd-pl-field.mrd-pl-invalid .mrd-pl-error{display:block}
+  .mrd-pl .mrd-pl-field.mrd-pl-invalid .mrd-pl-input{border-color:var(--mrd-or)}
+  .mrd-pl .mrd-pl-btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 2.4rem;background:var(--mrd-or);border:1px solid var(--mrd-or);border-radius:0;color:#0B0B0D;font-family:'Inter',sans-serif;font-weight:500;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;text-indent:.3em;cursor:pointer;transition:box-shadow .3s var(--mrd-ease-inout),opacity .3s var(--mrd-ease-inout)}
+  .mrd-pl .mrd-pl-btn:hover{background:var(--mrd-grad-or);box-shadow:var(--mrd-lueur-hover)}
+  .mrd-pl .mrd-pl-btn[disabled]{opacity:.45;cursor:default;box-shadow:none}
+  .mrd-pl .mrd-pl-status{margin-top:1.25rem;font-size:.9rem;min-height:1.5em}
+  .mrd-pl .mrd-pl-status a{color:var(--mrd-or);text-decoration:none;border-bottom:1px solid var(--mrd-ligne-or)}
+  .mrd-pl .mrd-pl-status a:hover{border-bottom-color:var(--mrd-or)}
+  .mrd-pl .mrd-pl-status.mrd-pl-ok{color:var(--mrd-creme)}
+  .mrd-pl .mrd-pl-status.mrd-pl-ko{color:var(--mrd-creme);border-left:2px solid var(--mrd-or);padding-left:.75rem}
+  @media(min-width:900px){.mrd-pl .mrd-pl-brod{grid-template-columns:1.05fr 1fr;align-items:start}}
+
+  /* --- Bandeau réassurance ---------------------------------------- */
+  .mrd-pl .mrd-pl-trust{background:var(--mrd-surface);border-top:1px solid var(--mrd-ligne);border-bottom:1px solid var(--mrd-ligne)}
+  .mrd-pl .mrd-pl-trust ul{list-style:none;display:grid;grid-template-columns:1fr;gap:2.25rem}
+  .mrd-pl .mrd-pl-trust li{text-align:center}
+  .mrd-pl .mrd-pl-trust svg{width:28px;height:28px;color:var(--mrd-or);margin:0 auto 1rem}
+  .mrd-pl .mrd-pl-trust strong{display:block;font-weight:500;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mrd-creme);margin-bottom:.5rem}
+  .mrd-pl .mrd-pl-trust p{font-size:.9rem;color:var(--mrd-gris)}
+  @media(min-width:640px){.mrd-pl .mrd-pl-trust ul{grid-template-columns:repeat(2,1fr)}}
+  @media(min-width:1000px){.mrd-pl .mrd-pl-trust ul{grid-template-columns:repeat(4,1fr)}}
+
+  /* --- L'atelier ---------------------------------------------------- */
+  .mrd-pl .mrd-pl-atelier{display:grid;grid-template-columns:1fr;gap:clamp(2.5rem,6vw,5rem);align-items:center}
+  .mrd-pl .mrd-pl-atelier-figure{position:relative;overflow:hidden;aspect-ratio:4/5;border:1px solid var(--mrd-ligne)}
+  .mrd-pl .mrd-pl-atelier-figure img,.mrd-pl .mrd-pl-atelier-figure svg{width:100%;height:100%;object-fit:cover}
+  .mrd-pl .mrd-pl-link{position:relative;display:inline-block;margin-top:1.75rem;padding:.85rem 0;color:var(--mrd-creme);font-weight:400;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;text-decoration:none}
+  .mrd-pl .mrd-pl-link::after{content:"";position:absolute;left:0;bottom:.5rem;width:100%;height:1px;background:var(--mrd-or);transform:scaleX(.35);transform-origin:left;transition:transform .3s var(--mrd-ease-inout)}
+  .mrd-pl .mrd-pl-link:hover::after{transform:scaleX(1)}
+  @media(min-width:900px){.mrd-pl .mrd-pl-atelier{grid-template-columns:1fr 1.05fr}}
+
+  /* --- Reduced motion : tout visible, rien ne bouge ------------------ */
+  @media(prefers-reduced-motion:reduce){
+    .mrd-pl *,.mrd-pl *::before,.mrd-pl *::after{animation:none!important;transition:none!important}
+    .mrd-pl .mrd-reveal{opacity:1!important;transform:none!important}
+  }
+{% endstyle %}
+
+<div class="mrd-pl" data-mrd-pl>
+
+  {%- if section.settings.show_broderie -%}
+    {%- if brod != blank and brod_variant != blank -%}
+      <section class="mrd-pl-wrap" aria-labelledby="mrd-pl-brod-title-{{ section.id }}">
+        <div class="mrd-pl-brod mrd-reveal">
+          <div>
+            <p class="mrd-pl-eyebrow">{{ section.settings.broderie_eyebrow }}</p>
+            <h2 id="mrd-pl-brod-title-{{ section.id }}">{{ section.settings.broderie_title }}</h2>
+            <span class="mrd-pl-rule" aria-hidden="true"></span>
+            <div class="mrd-pl-lead">{{ section.settings.broderie_text }}</div>
+            <p class="mrd-pl-brod-price">Broderie personnalisée · {{ brod.price | money }} par pièce</p>
+          </div>
+
+          <form class="mrd-pl-form" novalidate
+                data-variant-id="{{ brod_variant.id }}"
+                data-add-url="{{ routes.cart_add_url }}.js"
+                data-cart-url="{{ routes.cart_url }}">
+            <div class="mrd-pl-field" data-mrd-field>
+              <label class="mrd-pl-label" for="mrd-pl-text-{{ section.id }}">Votre texte (initiales, date, mot)</label>
+              <input class="mrd-pl-input" type="text" id="mrd-pl-text-{{ section.id }}" name="mrd-pl-text"
+                     maxlength="30" autocomplete="off" placeholder="A. M. — 14 juin 2026"
+                     aria-describedby="mrd-pl-help-{{ section.id }}">
+              <p class="mrd-pl-help" id="mrd-pl-help-{{ section.id }}">30 caractères au plus. Une broderie par pièce à broder.</p>
+              <p class="mrd-pl-error" role="alert">Merci d'indiquer le texte à broder.</p>
+            </div>
+            <div class="mrd-pl-field">
+              <label class="mrd-pl-label" for="mrd-pl-place-{{ section.id }}">Emplacement</label>
+              <select class="mrd-pl-select" id="mrd-pl-place-{{ section.id }}" name="mrd-pl-place">
+                <option value="Coussin">Coussin</option>
+                <option value="Accoudoir">Accoudoir</option>
+                <option value="Dossier">Dossier</option>
+              </select>
+            </div>
+            {%- if brod_variant.available -%}
+              <button class="mrd-pl-btn" type="submit">Ajouter la broderie</button>
+            {%- else -%}
+              <button class="mrd-pl-btn" type="button" disabled>Broderie indisponible</button>
+            {%- endif -%}
+            <p class="mrd-pl-status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+    {%- elsif request.design_mode -%}
+      <section class="mrd-pl-wrap">
+        <p class="mrd-pl-lead">Module broderie masqué : aucun produit trouvé pour le handle « {{ section.settings.broderie_handle }} ». Vérifiez le réglage de la section.</p>
+      </section>
+    {%- endif -%}
+  {%- endif -%}
+
+  {%- if section.settings.show_trust -%}
+    <section class="mrd-pl-trust" aria-label="Les engagements de la maison">
+      <div class="mrd-pl-wrap">
+        <ul>
+          <li class="mrd-reveal">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="16" cy="7" r="2.2"/><path d="M15 9 9.5 26M17 9l5.5 17M9.5 26q6.5 3 13 0"/></svg>
+            <strong>{{ section.settings.trust_1_title }}</strong>
+            <p>{{ section.settings.trust_1_text }}</p>
+          </li>
+          <li class="mrd-reveal" style="--mrd-d:120ms">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10h14v11h-14zM17.5 14h5.5l3.5 4v3h-9"/><circle cx="8.5" cy="23.5" r="2"/><circle cx="22" cy="23.5" r="2"/></svg>
+            <strong>{{ section.settings.trust_2_title }}</strong>
+            <p>{{ section.settings.trust_2_text }}</p>
+          </li>
+          <li class="mrd-reveal" style="--mrd-d:240ms">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4l9 3.5v7c0 6-4 10.5-9 13-5-2.5-9-7-9-13v-7z"/><path d="M12 15.5l3 3 5-6"/></svg>
+            <strong>{{ section.settings.trust_3_title }}</strong>
+            <p>{{ section.settings.trust_3_text }}</p>
+          </li>
+          <li class="mrd-reveal" style="--mrd-d:360ms">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4l10 6-10 6-10-6zM6 16l10 6 10-6M6 21l10 6 10-6"/></svg>
+            <strong>{{ section.settings.trust_4_title }}</strong>
+            <p>{{ section.settings.trust_4_text }}</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- if section.settings.show_atelier -%}
+    <section class="mrd-pl-wrap" aria-labelledby="mrd-pl-atelier-title-{{ section.id }}">
+      <div class="mrd-pl-atelier">
+        <figure class="mrd-pl-atelier-figure mrd-reveal">
+          {%- if section.settings.atelier_image -%}
+            {{ section.settings.atelier_image
+               | image_url: width: 1200
+               | image_tag: loading: 'lazy', decoding: 'async', widths: '400, 600, 800, 1200', alt: section.settings.atelier_image.alt | default: "Atelier Meridian, façonnage d'une assise" }}
+          {%- else -%}
+            {{ 'image' | placeholder_svg_tag }}
+          {%- endif -%}
+        </figure>
+        <div class="mrd-reveal" style="--mrd-d:150ms">
+          <p class="mrd-pl-eyebrow">{{ section.settings.atelier_eyebrow }}</p>
+          <h2 id="mrd-pl-atelier-title-{{ section.id }}">{{ section.settings.atelier_title }}</h2>
+          <span class="mrd-pl-rule" aria-hidden="true"></span>
+          <div class="mrd-pl-lead">{{ section.settings.atelier_text }}</div>
+          {%- if section.settings.atelier_link != blank and section.settings.atelier_link_label != blank -%}
+            <a class="mrd-pl-link" href="{{ section.settings.atelier_link }}">{{ section.settings.atelier_link_label }}</a>
+          {%- endif -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function initRoot(root){
+    if(root.dataset.mrdInit)return;
+    root.dataset.mrdInit='1';
+
+    /* Révélations : le moteur global MERIDIAN Motion gère .mrd-reveal
+       s'il est présent ; cet observateur scopé sert de garantie. */
+    var toReveal=Array.prototype.slice.call(root.querySelectorAll('.mrd-reveal'));
+    if(reduced||!('IntersectionObserver' in window)){
+      toReveal.forEach(function(el){el.classList.add('mrd-in');});
+    }else{
+      var io=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){e.target.classList.add('mrd-in');io.unobserve(e.target);}
+        });
+      },{threshold:.15,rootMargin:'0px 0px -8% 0px'});
+      toReveal.forEach(function(el){io.observe(el);});
+    }
+
+    /* Module broderie : ajout AJAX au panier */
+    var form=root.querySelector('.mrd-pl-form');
+    if(!form)return;
+    var field=form.querySelector('[data-mrd-field]');
+    var input=form.querySelector('.mrd-pl-input');
+    var select=form.querySelector('.mrd-pl-select');
+    var btn=form.querySelector('.mrd-pl-btn');
+    var status=form.querySelector('.mrd-pl-status');
+    var btnLabel=btn?btn.textContent:'';
+
+    input.addEventListener('input',function(){
+      field.classList.remove('mrd-pl-invalid');
+    },{passive:true});
+
+    form.addEventListener('submit',function(ev){
+      ev.preventDefault();
+      if(btn.disabled)return;
+      status.textContent='';
+      status.className='mrd-pl-status';
+
+      var text=input.value.trim();
+      if(!text){
+        field.classList.add('mrd-pl-invalid');
+        input.focus();
+        return;
+      }
+
+      btn.disabled=true;
+      btn.textContent='Ajout en cours…';
+
+      fetch(form.getAttribute('data-add-url'),{
+        method:'POST',
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body:JSON.stringify({
+          items:[{
+            id:parseInt(form.getAttribute('data-variant-id'),10),
+            quantity:1,
+            properties:{
+              'Texte de broderie':text,
+              'Emplacement':select.value
+            }
+          }]
+        })
+      }).then(function(res){
+        if(!res.ok)throw new Error('add-failed');
+        return res.json();
+      }).then(function(){
+        status.className='mrd-pl-status mrd-pl-ok';
+        status.innerHTML='Broderie ajoutée à votre panier. <a href="'+form.getAttribute('data-cart-url')+'">Voir le panier</a>';
+        document.dispatchEvent(new CustomEvent('cart:refresh',{bubbles:true}));
+      }).catch(function(){
+        status.className='mrd-pl-status mrd-pl-ko';
+        status.textContent="L'ajout n'a pas abouti. Vérifiez votre connexion, puis réessayez.";
+      }).then(function(){
+        btn.disabled=false;
+        btn.textContent=btnLabel;
+      });
+    });
+  }
+
+  function initAll(){
+    Array.prototype.slice.call(document.querySelectorAll('.mrd-pl[data-mrd-pl]')).forEach(initRoot);
+  }
+  initAll();
+  document.addEventListener('shopify:section:load',initAll);
+})();
+</script>
+
+{% schema %}
+{
+  "name": "MERIDIAN — Produit luxe",
+  "tag": "section",
+  "class": "mrd-section-product-luxe",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Module broderie"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_broderie",
+      "label": "Afficher le module broderie",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "broderie_handle",
+      "label": "Handle du produit broderie",
+      "default": "broderie-personnalisee",
+      "info": "Le produit ajouté au panier lors de la commande d'une broderie."
+    },
+    {
+      "type": "text",
+      "id": "broderie_eyebrow",
+      "label": "Sur-titre",
+      "default": "La signature"
+    },
+    {
+      "type": "text",
+      "id": "broderie_title",
+      "label": "Titre",
+      "default": "Chaque pièce porte votre signature"
+    },
+    {
+      "type": "richtext",
+      "id": "broderie_text",
+      "label": "Texte",
+      "default": "<p>Des initiales, une date, un mot tenu secret. Brodé au fil dans nos ateliers, à l'endroit exact que vous aurez choisi, votre monogramme fait de chaque pièce un exemplaire unique.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Bandeau réassurance"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust",
+      "label": "Afficher le bandeau réassurance",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "trust_1_title",
+      "label": "Pilier 1 — titre",
+      "default": "Fabrication à la commande"
+    },
+    {
+      "type": "text",
+      "id": "trust_1_text",
+      "label": "Pilier 1 — texte",
+      "default": "Chaque pièce est produite pour son client."
+    },
+    {
+      "type": "text",
+      "id": "trust_2_title",
+      "label": "Pilier 2 — titre",
+      "default": "Livraison en gants blancs"
+    },
+    {
+      "type": "text",
+      "id": "trust_2_text",
+      "label": "Pilier 2 — texte",
+      "default": "Incluse, jusqu'à la pièce de votre choix."
+    },
+    {
+      "type": "text",
+      "id": "trust_3_title",
+      "label": "Pilier 3 — titre",
+      "default": "Garantie fabricant"
+    },
+    {
+      "type": "text",
+      "id": "trust_3_text",
+      "label": "Pilier 3 — texte",
+      "default": "Nos ateliers s'engagent sur la durée."
+    },
+    {
+      "type": "text",
+      "id": "trust_4_title",
+      "label": "Pilier 4 — titre",
+      "default": "Échantillons à domicile"
+    },
+    {
+      "type": "text",
+      "id": "trust_4_text",
+      "label": "Pilier 4 — texte",
+      "default": "Les tissus se choisissent à la lumière de chez vous."
+    },
+    {
+      "type": "header",
+      "content": "L'atelier"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_atelier",
+      "label": "Afficher le bloc atelier",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "atelier_image",
+      "label": "Image de l'atelier"
+    },
+    {
+      "type": "text",
+      "id": "atelier_eyebrow",
+      "label": "Sur-titre",
+      "default": "L'atelier"
+    },
+    {
+      "type": "text",
+      "id": "atelier_title",
+      "label": "Titre",
+      "default": "Tapissé à la commande, dans nos ateliers"
+    },
+    {
+      "type": "richtext",
+      "id": "atelier_text",
+      "label": "Texte",
+      "default": "<p>Aucun stock, aucune série. Votre commande met l'atelier en mouvement : la coupe, la couture, le capitonnage, les finitions — puis la livraison en gants blancs, jusqu'à la pièce de votre choix.</p>"
+    },
+    {
+      "type": "url",
+      "id": "atelier_link",
+      "label": "Lien (facultatif)"
+    },
+    {
+      "type": "text",
+      "id": "atelier_link_label",
+      "label": "Libellé du lien",
+      "default": "Découvrir la maison"
+    }
+  ],
+  "presets": [
+    {
+      "name": "MERIDIAN — Produit luxe"
+    }
+  ],
+  "enabled_on": {
+    "templates": ["product"]
+  }
+}
+{% endschema %}
