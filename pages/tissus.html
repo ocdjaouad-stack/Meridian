@@ -1,0 +1,291 @@
+<!-- PAGE: tissus (body HTML complet de la page Shopify) -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   MERIDIAN — Tissus v2
+   Scope strict : #mrd-tissus. Aucun sélecteur global.
+   La grille des gammes est générée depuis le tableau GAMMES
+   déclaré en tête de script (données du nuancier).
+   ============================================================ */
+#mrd-tissus{
+  --mrd-noir:#0B0B0D;
+  --mrd-surface:#101013;
+  --mrd-creme:#F2EDE4;
+  --mrd-gris:#9B968C;
+  --mrd-or:#C8A35F;
+  --mrd-grad-or:linear-gradient(135deg,#E7CF94 0%,#C8A35F 45%,#9C7B3E 100%);
+  --mrd-ligne-or:rgba(200,163,95,.28);
+  --mrd-ligne:rgba(242,237,228,.08);
+  --mrd-lueur:0 0 60px rgba(200,163,95,.08);
+  --mrd-lueur-hover:0 0 40px rgba(200,163,95,.14);
+  --mrd-focus:0 0 0 2px #0B0B0D,0 0 0 4px #C8A35F;
+  --mrd-ease-out:cubic-bezier(.22,1,.36,1);
+  --mrd-ease-inout:cubic-bezier(.65,0,.35,1);
+  background:var(--mrd-noir);
+  color:var(--mrd-creme);
+  font-family:'Inter',sans-serif;
+  font-weight:300;
+  font-size:1.0625rem;
+  line-height:1.7;
+  overflow:clip;
+  -webkit-font-smoothing:antialiased;
+}
+#mrd-tissus *,#mrd-tissus *::before,#mrd-tissus *::after{box-sizing:border-box;margin:0;padding:0}
+#mrd-tissus img{display:block;max-width:100%}
+#mrd-tissus h1,#mrd-tissus h2{font-family:'Cormorant Garamond',serif;font-weight:500;color:var(--mrd-creme)}
+#mrd-tissus h1{font-size:clamp(2.6rem,6vw,4.5rem);line-height:1.05;letter-spacing:.01em}
+#mrd-tissus h2{font-size:clamp(1.9rem,3.6vw,2.9rem);line-height:1.12}
+#mrd-tissus a{color:inherit}
+#mrd-tissus a:focus-visible{outline:none;box-shadow:var(--mrd-focus)}
+#mrd-tissus .mrd-t-wrap{max-width:1320px;margin:0 auto;padding-left:clamp(1.25rem,5vw,4rem);padding-right:clamp(1.25rem,5vw,4rem)}
+#mrd-tissus .mrd-t-eyebrow{font-weight:500;font-size:.72rem;letter-spacing:.35em;text-transform:uppercase;color:var(--mrd-or);margin-bottom:1.5rem}
+#mrd-tissus .mrd-t-rule{display:block;width:48px;height:1px;background:var(--mrd-grad-or);margin-top:1.75rem}
+#mrd-tissus .mrd-t-lead{color:var(--mrd-gris);max-width:620px;margin-top:1.5rem}
+#mrd-tissus .mrd-t-btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 2.4rem;background:var(--mrd-or);border:1px solid var(--mrd-or);color:#0B0B0D;font-family:'Inter',sans-serif;font-weight:500;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;text-decoration:none;text-indent:.3em;transition:box-shadow .3s var(--mrd-ease-inout),background-color .3s var(--mrd-ease-inout)}
+#mrd-tissus .mrd-t-btn:hover{background:var(--mrd-grad-or);box-shadow:var(--mrd-lueur-hover)}
+
+/* --- Révélations (contrat MERIDIAN Motion : .mrd-reveal → .mrd-in) --- */
+#mrd-tissus .mrd-reveal{opacity:0;transform:translateY(24px);transition:opacity .9s var(--mrd-ease-out),transform .9s var(--mrd-ease-out);transition-delay:var(--mrd-d,0ms)}
+#mrd-tissus .mrd-reveal.mrd-in{opacity:1;transform:none}
+
+/* --- Hero -------------------------------------------------------- */
+#mrd-tissus .mrd-t-hero{position:relative;min-height:72vh;min-height:72svh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:7rem clamp(1.25rem,5vw,4rem) 5rem}
+#mrd-tissus .mrd-t-sky{position:absolute;inset:0;pointer-events:none}
+#mrd-tissus .mrd-t-sky svg{width:100%;height:100%}
+#mrd-tissus .mrd-t-ring-a,#mrd-tissus .mrd-t-ring-b{transform-box:view-box;transform-origin:50% 50%}
+#mrd-tissus .mrd-t-ring-a{animation:mrd-t-rot 110s linear infinite}
+#mrd-tissus .mrd-t-ring-b{animation:mrd-t-rot 160s linear infinite reverse}
+@keyframes mrd-t-rot{to{transform:rotate(360deg)}}
+#mrd-tissus .mrd-t-star{animation:mrd-t-twinkle 9s var(--mrd-ease-inout) infinite}
+#mrd-tissus .mrd-t-star:nth-of-type(2n){animation-delay:3s}
+#mrd-tissus .mrd-t-star:nth-of-type(3n){animation-delay:6s}
+@keyframes mrd-t-twinkle{0%,100%{opacity:.2}50%{opacity:.6}}
+#mrd-tissus .mrd-t-hero-inner{position:relative;z-index:2;max-width:760px}
+#mrd-tissus .mrd-t-hero-inner .mrd-t-lead{margin-left:auto;margin-right:auto}
+
+/* --- Gammes -------------------------------------------------------- */
+#mrd-tissus .mrd-t-gamme{padding-top:clamp(3.5rem,8vh,6rem);padding-bottom:clamp(3.5rem,8vh,6rem)}
+#mrd-tissus .mrd-t-gamme+.mrd-t-gamme{border-top:1px solid var(--mrd-ligne)}
+#mrd-tissus .mrd-t-gamme-head{display:grid;grid-template-columns:1fr;gap:clamp(2rem,5vw,4rem);align-items:center;margin-bottom:clamp(2.25rem,5vh,3.5rem)}
+#mrd-tissus .mrd-t-gamme-figure{position:relative;overflow:hidden;aspect-ratio:3/2;border:1px solid var(--mrd-ligne)}
+#mrd-tissus .mrd-t-gamme-figure img{width:100%;height:100%;object-fit:cover}
+#mrd-tissus .mrd-t-count{margin-top:1.5rem;font-size:.72rem;font-weight:500;letter-spacing:.25em;text-transform:uppercase;color:var(--mrd-or)}
+@media(min-width:900px){
+  #mrd-tissus .mrd-t-gamme-head{grid-template-columns:.85fr 1.15fr}
+  #mrd-tissus .mrd-t-flip .mrd-t-gamme-figure{order:2}
+}
+
+/* --- Swatches -------------------------------------------------------- */
+#mrd-tissus .mrd-t-swatches{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:.75rem}
+@media(min-width:750px){#mrd-tissus .mrd-t-swatches{grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:1rem}}
+#mrd-tissus .mrd-t-swatch{position:relative;background:var(--mrd-surface);border:1px solid var(--mrd-ligne);transition:border-color .3s var(--mrd-ease-inout),box-shadow .3s var(--mrd-ease-inout)}
+#mrd-tissus .mrd-t-swatch:hover{border-color:var(--mrd-ligne-or);box-shadow:var(--mrd-lueur-hover)}
+#mrd-tissus .mrd-t-swatch:focus-visible{outline:none;box-shadow:var(--mrd-focus)}
+#mrd-tissus .mrd-t-swatch figure{aspect-ratio:1;overflow:hidden}
+#mrd-tissus .mrd-t-swatch img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--mrd-ease-out)}
+#mrd-tissus .mrd-t-swatch:hover img,#mrd-tissus .mrd-t-swatch:focus-visible img{transform:scale(1.08)}
+#mrd-tissus .mrd-t-swatch-name{position:absolute;left:0;right:0;bottom:0;padding:1.4rem .6rem .55rem;font-size:.68rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--mrd-creme);text-align:center;background:linear-gradient(to top,rgba(11,11,13,.85),transparent);opacity:0;transition:opacity .3s var(--mrd-ease-inout)}
+#mrd-tissus .mrd-t-swatch:hover .mrd-t-swatch-name,#mrd-tissus .mrd-t-swatch:focus-visible .mrd-t-swatch-name{opacity:1}
+@media(max-width:749px){
+  #mrd-tissus .mrd-t-swatch-name{position:static;padding:.5rem .35rem .6rem;background:none;opacity:1;color:var(--mrd-gris)}
+}
+
+/* --- Échantillons à domicile ------------------------------------------ */
+#mrd-tissus .mrd-t-cta{padding:clamp(5rem,12vh,8rem) clamp(1.25rem,5vw,4rem)}
+#mrd-tissus .mrd-t-cta-panel{max-width:880px;margin:0 auto;padding:clamp(3rem,7vw,5rem);background:var(--mrd-surface);border:1px solid var(--mrd-ligne);text-align:center;box-shadow:var(--mrd-lueur)}
+#mrd-tissus .mrd-t-cta-panel .mrd-t-rule{margin-left:auto;margin-right:auto}
+#mrd-tissus .mrd-t-cta-panel .mrd-t-lead{margin-left:auto;margin-right:auto}
+#mrd-tissus .mrd-t-cta-panel .mrd-t-btn{margin-top:2.5rem}
+
+/* --- Reduced motion : tout visible, rien ne bouge ---------------------- */
+@media(prefers-reduced-motion:reduce){
+  #mrd-tissus *,#mrd-tissus *::before,#mrd-tissus *::after{animation:none!important;transition:none!important}
+  #mrd-tissus .mrd-reveal{opacity:1!important;transform:none!important}
+}
+</style>
+
+<div id="mrd-tissus">
+
+  <!-- ================= HERO ================= -->
+  <section class="mrd-t-hero" aria-label="La bibliothèque de tissus Meridian">
+    <div class="mrd-t-sky" aria-hidden="true">
+      <svg viewBox="0 0 1200 700" fill="none" preserveAspectRatio="xMidYMid slice">
+        <g class="mrd-t-ring-a" opacity=".26">
+          <ellipse cx="600" cy="350" rx="460" ry="200" stroke="#C8A35F" stroke-width="1" transform="rotate(-24 600 350)"/>
+          <circle cx="1040" cy="240" r="2" fill="#E7CF94"/>
+        </g>
+        <g class="mrd-t-ring-b" opacity=".16">
+          <ellipse cx="600" cy="350" rx="320" ry="260" stroke="#C8A35F" stroke-width="1" transform="rotate(18 600 350)"/>
+        </g>
+        <circle class="mrd-t-star" cx="150" cy="140" r="1.4" fill="#F2EDE4" opacity=".4"/>
+        <circle class="mrd-t-star" cx="1010" cy="110" r="1.1" fill="#F2EDE4" opacity=".35"/>
+        <circle class="mrd-t-star" cx="1120" cy="470" r="1.4" fill="#F2EDE4" opacity=".3"/>
+        <circle class="mrd-t-star" cx="90" cy="520" r="1" fill="#F2EDE4" opacity=".35"/>
+        <circle class="mrd-t-star" cx="660" cy="90" r="1.2" fill="#F2EDE4" opacity=".4"/>
+        <circle class="mrd-t-star" cx="420" cy="610" r="1.2" fill="#F2EDE4" opacity=".3"/>
+      </svg>
+    </div>
+    <div class="mrd-t-hero-inner">
+      <p class="mrd-t-eyebrow mrd-reveal">Les tissus</p>
+      <h1 class="mrd-reveal" style="--mrd-d:120ms">La bibliothèque<br>de tissus</h1>
+      <p class="mrd-t-lead mrd-reveal" style="--mrd-d:240ms">Un tissu ne se juge pas sur un écran. Chaque teinte vit avec la lumière — c'est chez vous qu'elle se révèle. Parcourez nos gammes, puis recevez vos échantillons à domicile.</p>
+    </div>
+  </section>
+
+  <!-- ================= GAMMES (générées depuis GAMMES) ================= -->
+  <div class="mrd-t-wrap" id="mrd-t-gammes"></div>
+
+  <!-- ================= ÉCHANTILLONS À DOMICILE ================= -->
+  <section class="mrd-t-cta">
+    <div class="mrd-t-cta-panel mrd-reveal">
+      <p class="mrd-t-eyebrow">Le rituel de la maison</p>
+      <h2>Échantillons à domicile</h2>
+      <span class="mrd-t-rule" aria-hidden="true"></span>
+      <p class="mrd-t-lead">Demandez vos échantillons : nous les adressons chez vous, pour les regarder à la lumière de votre salon, les poser sur votre sol, les vivre quelques jours. Le choix se fait toujours plus juste.</p>
+      <a class="mrd-t-btn" href="/pages/contact">Demander mes échantillons</a>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ==========================================================
+     DONNÉES DU NUANCIER — SEULE ZONE À MODIFIER À L'INJECTION.
+     Remplacer ces gammes d'exemple par les vraies gammes du
+     fournisseur. Chaque gamme :
+       nom         : nom de la gamme (affiché en titre)
+       description : une à deux phrases, ton maison
+       image       : URL de l'image d'ambiance (tissu en situation)
+       teintes     : liste de { nom, image } — image = URL du swatch
+     La grille entière de la page est générée depuis ce tableau.
+     ========================================================== */
+  var GAMMES=[
+    {
+      nom:'Velours',
+      description:'Profond, changeant sous la lumière. Le velours habille les pièces de réception comme les salons intimes.',
+      image:'{{IMAGE_1}}',
+      teintes:[
+        {nom:'Noir onyx',image:'{{IMAGE_5}}'},
+        {nom:'Bleu nuit',image:'{{IMAGE_6}}'},
+        {nom:'Vert forêt',image:'{{IMAGE_7}}'},
+        {nom:'Terracotta',image:'{{IMAGE_8}}'},
+        {nom:'Ocre doré',image:'{{IMAGE_9}}'},
+        {nom:'Gris perle',image:'{{IMAGE_10}}'},
+        {nom:'Taupe',image:'{{IMAGE_11}}'},
+        {nom:'Bordeaux',image:'{{IMAGE_12}}'},
+        {nom:'Crème',image:'{{IMAGE_13}}'},
+        {nom:'Rose poudré',image:'{{IMAGE_14}}'}
+      ]
+    },
+    {
+      nom:'Chenille',
+      description:'Une main douce, presque duveteuse, d\'une grande résistance au quotidien.',
+      image:'{{IMAGE_2}}',
+      teintes:[
+        {nom:'Sable',image:'{{IMAGE_15}}'},
+        {nom:'Lin',image:'{{IMAGE_16}}'},
+        {nom:'Grège',image:'{{IMAGE_17}}'},
+        {nom:'Brume',image:'{{IMAGE_18}}'},
+        {nom:'Céladon',image:'{{IMAGE_19}}'},
+        {nom:'Terre brûlée',image:'{{IMAGE_20}}'},
+        {nom:'Anthracite',image:'{{IMAGE_21}}'},
+        {nom:'Ivoire',image:'{{IMAGE_22}}'}
+      ]
+    },
+    {
+      nom:'Bouclé',
+      description:'Un relief vivant, une rondeur chaleureuse — la texture qui invite à s\'asseoir.',
+      image:'{{IMAGE_3}}',
+      teintes:[
+        {nom:'Écru',image:'{{IMAGE_23}}'},
+        {nom:'Neige',image:'{{IMAGE_24}}'},
+        {nom:'Avoine',image:'{{IMAGE_25}}'},
+        {nom:'Galet',image:'{{IMAGE_26}}'},
+        {nom:'Camel',image:'{{IMAGE_27}}'},
+        {nom:'Mousse',image:'{{IMAGE_28}}'},
+        {nom:'Graphite',image:'{{IMAGE_29}}'},
+        {nom:'Cacao',image:'{{IMAGE_30}}'}
+      ]
+    },
+    {
+      nom:'Tissage',
+      description:'Serré, mat, structuré. Le choix de la sobriété, pensé pour durer.',
+      image:'{{IMAGE_4}}',
+      teintes:[
+        {nom:'Naturel',image:'{{IMAGE_31}}'},
+        {nom:'Ficelle',image:'{{IMAGE_32}}'},
+        {nom:'Paille',image:'{{IMAGE_33}}'},
+        {nom:'Safran',image:'{{IMAGE_34}}'},
+        {nom:'Argile',image:'{{IMAGE_35}}'},
+        {nom:'Olive',image:'{{IMAGE_36}}'},
+        {nom:'Indigo',image:'{{IMAGE_37}}'},
+        {nom:'Orage',image:'{{IMAGE_38}}'},
+        {nom:'Ardoise',image:'{{IMAGE_39}}'},
+        {nom:'Charbon',image:'{{IMAGE_40}}'}
+      ]
+    }
+  ];
+  /* ================ FIN DES DONNÉES DU NUANCIER ================ */
+
+  var root=document.getElementById('mrd-tissus');
+  if(!root)return;
+  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function esc(s){
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function slug(s){
+    return String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  }
+
+  /* Génération de la grille des gammes */
+  var wrap=document.getElementById('mrd-t-gammes');
+  if(wrap){
+    var html=GAMMES.map(function(g,i){
+      var id='mrd-t-gamme-'+slug(g.nom);
+      var swatches=g.teintes.map(function(t){
+        return '<li class="mrd-t-swatch" tabindex="0">'
+          +'<figure><img src="'+esc(t.image)+'" alt="Tissu '+esc(g.nom)+', teinte '+esc(t.nom)+'" loading="lazy" decoding="async"></figure>'
+          +'<span class="mrd-t-swatch-name">'+esc(t.nom)+'</span>'
+          +'</li>';
+      }).join('');
+      return '<section class="mrd-t-gamme mrd-reveal'+(i%2===1?' mrd-t-flip':'')+'" aria-labelledby="'+id+'">'
+        +'<div class="mrd-t-gamme-head">'
+        +'<figure class="mrd-t-gamme-figure"><img src="'+esc(g.image)+'" alt="Gamme '+esc(g.nom)+' — tissu en situation" loading="lazy" decoding="async"></figure>'
+        +'<div>'
+        +'<p class="mrd-t-eyebrow">La gamme</p>'
+        +'<h2 id="'+id+'">'+esc(g.nom)+'</h2>'
+        +'<span class="mrd-t-rule" aria-hidden="true"></span>'
+        +'<p class="mrd-t-lead">'+esc(g.description)+'</p>'
+        +'<p class="mrd-t-count">'+g.teintes.length+' teintes</p>'
+        +'</div>'
+        +'</div>'
+        +'<ul class="mrd-t-swatches">'+swatches+'</ul>'
+        +'</section>';
+    }).join('');
+    wrap.innerHTML=html;
+  }
+
+  /* Révélations : le moteur global MERIDIAN Motion gère .mrd-reveal
+     s'il est présent ; cet observateur scopé sert de garantie
+     (indispensable ici pour le contenu généré après son passage). */
+  var toReveal=Array.prototype.slice.call(root.querySelectorAll('.mrd-reveal'));
+  if(reduced||!('IntersectionObserver' in window)){
+    toReveal.forEach(function(el){el.classList.add('mrd-in');});
+  }else{
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('mrd-in');io.unobserve(e.target);}
+      });
+    },{threshold:.1,rootMargin:'0px 0px -8% 0px'});
+    toReveal.forEach(function(el){io.observe(el);});
+  }
+})();
+</script>
