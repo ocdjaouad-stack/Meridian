@@ -1,0 +1,282 @@
+<!-- PAGE: professionnels (body HTML complet de la page Shopify) -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   MERIDIAN — Espace professionnels
+   Scope strict : #mrd-pros. Aucun sélecteur global.
+   ============================================================ */
+#mrd-pros{
+  --mrd-noir:#0B0B0D;
+  --mrd-surface:#101013;
+  --mrd-creme:#F2EDE4;
+  --mrd-gris:#9B968C;
+  --mrd-or:#C8A35F;
+  --mrd-grad-or:linear-gradient(135deg,#E7CF94 0%,#C8A35F 45%,#9C7B3E 100%);
+  --mrd-ligne-or:rgba(200,163,95,.28);
+  --mrd-ligne:rgba(242,237,228,.08);
+  --mrd-lueur:0 0 60px rgba(200,163,95,.08);
+  --mrd-lueur-hover:0 0 40px rgba(200,163,95,.14);
+  --mrd-focus:0 0 0 2px #0B0B0D,0 0 0 4px #C8A35F;
+  --mrd-ease-out:cubic-bezier(.22,1,.36,1);
+  --mrd-ease-inout:cubic-bezier(.65,0,.35,1);
+  background:var(--mrd-noir);
+  color:var(--mrd-creme);
+  font-family:'Inter',sans-serif;
+  font-weight:300;
+  font-size:1.0625rem;
+  line-height:1.7;
+  overflow:clip;
+  -webkit-font-smoothing:antialiased;
+}
+#mrd-pros *,#mrd-pros *::before,#mrd-pros *::after{box-sizing:border-box;margin:0;padding:0}
+#mrd-pros img,#mrd-pros svg{display:block;max-width:100%}
+#mrd-pros h1,#mrd-pros h2,#mrd-pros h3{font-family:'Cormorant Garamond',serif;font-weight:500;color:var(--mrd-creme)}
+#mrd-pros h1{font-size:clamp(2.4rem,5.5vw,4.25rem);line-height:1.08;letter-spacing:.01em}
+#mrd-pros h2{font-size:clamp(1.9rem,3.6vw,2.9rem);line-height:1.12}
+#mrd-pros h3{font-size:clamp(1.25rem,2vw,1.6rem);line-height:1.2}
+#mrd-pros a{color:inherit}
+#mrd-pros a:focus-visible{outline:none;box-shadow:var(--mrd-focus)}
+#mrd-pros .mrd-p-wrap{max-width:1320px;margin:0 auto;padding-left:clamp(1.25rem,5vw,4rem);padding-right:clamp(1.25rem,5vw,4rem)}
+#mrd-pros .mrd-p-section{padding-top:clamp(4.5rem,11vh,7.5rem);padding-bottom:clamp(4.5rem,11vh,7.5rem)}
+#mrd-pros .mrd-p-eyebrow{font-weight:500;font-size:.72rem;letter-spacing:.35em;text-transform:uppercase;color:var(--mrd-or);margin-bottom:1.5rem}
+#mrd-pros .mrd-p-rule{display:block;width:48px;height:1px;background:var(--mrd-grad-or);margin-top:1.75rem}
+#mrd-pros .mrd-p-lead{color:var(--mrd-gris);max-width:620px;margin-top:1.5rem}
+#mrd-pros .mrd-p-center{text-align:center}
+#mrd-pros .mrd-p-center .mrd-p-rule,#mrd-pros .mrd-p-center .mrd-p-lead{margin-left:auto;margin-right:auto}
+#mrd-pros .mrd-p-btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 2.4rem;background:var(--mrd-or);border:1px solid var(--mrd-or);color:#0B0B0D;font-family:'Inter',sans-serif;font-weight:500;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;text-decoration:none;text-indent:.3em;transition:box-shadow .3s var(--mrd-ease-inout),background-color .3s var(--mrd-ease-inout)}
+#mrd-pros .mrd-p-btn:hover{background:var(--mrd-grad-or);box-shadow:var(--mrd-lueur-hover)}
+#mrd-pros .mrd-p-mail{position:relative;display:inline-block;padding:.85rem 0;color:var(--mrd-or);font-weight:400;font-size:.9rem;letter-spacing:.06em;text-decoration:none}
+#mrd-pros .mrd-p-mail::after{content:"";position:absolute;left:0;bottom:.5rem;width:100%;height:1px;background:var(--mrd-or);transform:scaleX(.35);transform-origin:left;transition:transform .3s var(--mrd-ease-inout)}
+#mrd-pros .mrd-p-mail:hover::after{transform:scaleX(1)}
+
+/* --- Révélations (contrat MERIDIAN Motion : .mrd-reveal → .mrd-in) --- */
+#mrd-pros .mrd-reveal{opacity:0;transform:translateY(24px);transition:opacity .9s var(--mrd-ease-out),transform .9s var(--mrd-ease-out);transition-delay:var(--mrd-d,0ms)}
+#mrd-pros .mrd-reveal.mrd-in{opacity:1;transform:none}
+
+/* --- Hero -------------------------------------------------------- */
+#mrd-pros .mrd-p-hero{position:relative;min-height:72vh;min-height:72svh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:7rem clamp(1.25rem,5vw,4rem) 5rem}
+#mrd-pros .mrd-p-sky{position:absolute;inset:0;pointer-events:none}
+#mrd-pros .mrd-p-sky svg{width:100%;height:100%}
+#mrd-pros .mrd-p-ring-a,#mrd-pros .mrd-p-ring-b{transform-box:view-box;transform-origin:50% 50%}
+#mrd-pros .mrd-p-ring-a{animation:mrd-p-rot 130s linear infinite}
+#mrd-pros .mrd-p-ring-b{animation:mrd-p-rot 180s linear infinite reverse}
+@keyframes mrd-p-rot{to{transform:rotate(360deg)}}
+#mrd-pros .mrd-p-star{animation:mrd-p-twinkle 9s var(--mrd-ease-inout) infinite}
+#mrd-pros .mrd-p-star:nth-of-type(2n){animation-delay:3s}
+#mrd-pros .mrd-p-star:nth-of-type(3n){animation-delay:6s}
+@keyframes mrd-p-twinkle{0%,100%{opacity:.2}50%{opacity:.6}}
+#mrd-pros .mrd-p-hero-inner{position:relative;z-index:2;max-width:820px}
+#mrd-pros .mrd-p-hero-cta{display:flex;flex-wrap:wrap;gap:1rem 2.5rem;align-items:center;justify-content:center;margin-top:3rem}
+
+/* --- Arguments -------------------------------------------------------- */
+#mrd-pros .mrd-p-args{background:var(--mrd-surface);border-top:1px solid var(--mrd-ligne);border-bottom:1px solid var(--mrd-ligne)}
+#mrd-pros .mrd-p-args-head{margin-bottom:clamp(2.5rem,6vh,4rem)}
+#mrd-pros .mrd-p-args ul{list-style:none;display:grid;grid-template-columns:1fr;gap:1.25rem}
+#mrd-pros .mrd-p-arg{display:grid;grid-template-columns:auto 1fr;gap:1.5rem;align-items:start;background:var(--mrd-noir);border:1px solid var(--mrd-ligne);padding:2rem;transition:border-color .3s var(--mrd-ease-inout),box-shadow .3s var(--mrd-ease-inout)}
+#mrd-pros .mrd-p-arg:hover{border-color:var(--mrd-ligne-or);box-shadow:var(--mrd-lueur-hover)}
+#mrd-pros .mrd-p-arg svg{width:28px;height:28px;color:var(--mrd-or);margin-top:.35rem}
+#mrd-pros .mrd-p-arg strong{display:block;font-weight:500;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mrd-creme);margin-bottom:.5rem}
+#mrd-pros .mrd-p-arg p{font-size:.92rem;color:var(--mrd-gris)}
+@media(min-width:800px){#mrd-pros .mrd-p-args ul{grid-template-columns:repeat(2,1fr);gap:1.5rem}}
+
+/* --- Image de projet -------------------------------------------------- */
+#mrd-pros .mrd-p-figure{position:relative;overflow:hidden;aspect-ratio:4/3;border:1px solid var(--mrd-ligne)}
+#mrd-pros .mrd-p-figure img{width:100%;height:100%;object-fit:cover}
+@media(min-width:750px){#mrd-pros .mrd-p-figure{aspect-ratio:21/9}}
+
+/* --- Déroulé d'un projet ----------------------------------------------- */
+#mrd-pros .mrd-p-steps-head{margin-bottom:clamp(2.5rem,6vh,4rem)}
+#mrd-pros .mrd-p-steps{list-style:none;max-width:820px;margin:0 auto}
+#mrd-pros .mrd-p-step{position:relative;display:grid;grid-template-columns:4.5rem 1fr;gap:1.5rem;padding-bottom:clamp(2.25rem,5vh,3.25rem)}
+#mrd-pros .mrd-p-step:last-child{padding-bottom:0}
+#mrd-pros .mrd-p-step-num{font-family:'Cormorant Garamond',serif;font-weight:500;font-variant-numeric:lining-nums;font-size:2.1rem;line-height:1;color:var(--mrd-or)}
+#mrd-pros .mrd-p-step:not(:last-child)::before{content:"";position:absolute;left:1.05rem;top:3rem;bottom:.75rem;width:1px;background:linear-gradient(to bottom,var(--mrd-ligne-or),transparent)}
+#mrd-pros .mrd-p-step h3{margin-bottom:.4rem}
+#mrd-pros .mrd-p-step p{font-size:.95rem;color:var(--mrd-gris);max-width:560px}
+
+/* --- Final CTA ----------------------------------------------------------- */
+#mrd-pros .mrd-p-final-panel{max-width:880px;margin:0 auto;padding:clamp(3rem,7vw,5rem);background:var(--mrd-surface);border:1px solid var(--mrd-ligne);text-align:center;box-shadow:var(--mrd-lueur)}
+#mrd-pros .mrd-p-final-links{display:flex;flex-direction:column;align-items:center;margin-top:2.5rem}
+#mrd-pros .mrd-p-final-links .mrd-p-mail{margin-top:1.25rem}
+
+/* --- Reduced motion : tout visible, rien ne bouge ------------------------- */
+@media(prefers-reduced-motion:reduce){
+  #mrd-pros *,#mrd-pros *::before,#mrd-pros *::after{animation:none!important;transition:none!important}
+  #mrd-pros .mrd-reveal{opacity:1!important;transform:none!important}
+}
+</style>
+
+<div id="mrd-pros">
+
+  <!-- ================= HERO ================= -->
+  <section class="mrd-p-hero" aria-label="Espace professionnels Meridian">
+    <div class="mrd-p-sky" aria-hidden="true">
+      <svg viewBox="0 0 1200 700" fill="none" preserveAspectRatio="xMidYMid slice">
+        <g class="mrd-p-ring-a" opacity=".24">
+          <ellipse cx="600" cy="350" rx="500" ry="170" stroke="#C8A35F" stroke-width="1" transform="rotate(10 600 350)"/>
+          <circle cx="120" cy="420" r="2" fill="#E7CF94"/>
+        </g>
+        <g class="mrd-p-ring-b" opacity=".15">
+          <circle cx="880" cy="180" r="130" stroke="#C8A35F" stroke-width="1"/>
+        </g>
+        <circle class="mrd-p-star" cx="180" cy="130" r="1.4" fill="#F2EDE4" opacity=".4"/>
+        <circle class="mrd-p-star" cx="1050" cy="420" r="1.2" fill="#F2EDE4" opacity=".35"/>
+        <circle class="mrd-p-star" cx="960" cy="90" r="1.4" fill="#F2EDE4" opacity=".3"/>
+        <circle class="mrd-p-star" cx="90" cy="560" r="1" fill="#F2EDE4" opacity=".35"/>
+        <circle class="mrd-p-star" cx="560" cy="70" r="1.2" fill="#F2EDE4" opacity=".4"/>
+        <circle class="mrd-p-star" cx="420" cy="620" r="1.2" fill="#F2EDE4" opacity=".3"/>
+      </svg>
+    </div>
+    <div class="mrd-p-hero-inner">
+      <p class="mrd-p-eyebrow mrd-reveal">Espace professionnels</p>
+      <h1 class="mrd-reveal" style="--mrd-d:120ms">Décorateurs &amp;<br>architectes d'intérieur</h1>
+      <p class="mrd-p-lead mrd-reveal" style="--mrd-d:240ms;margin-left:auto;margin-right:auto">La maison met son atelier au service de vos projets : sur-mesure total, interlocuteur dédié, conditions réservées aux professionnels.</p>
+      <div class="mrd-p-hero-cta mrd-reveal" style="--mrd-d:360ms">
+        <a class="mrd-p-btn" href="/pages/contact">Prendre contact</a>
+        <a class="mrd-p-mail" href="mailto:contact@houseofmeridian.fr">contact@houseofmeridian.fr</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ARGUMENTS ================= -->
+  <section class="mrd-p-args mrd-p-section">
+    <div class="mrd-p-wrap">
+      <header class="mrd-p-args-head mrd-p-center mrd-reveal">
+        <p class="mrd-p-eyebrow">L'accompagnement</p>
+        <h2>Ce que la maison met à votre service</h2>
+        <span class="mrd-p-rule" aria-hidden="true"></span>
+      </header>
+      <ul>
+        <li class="mrd-p-arg mrd-reveal">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16h20M9 13l-3 3 3 3M23 13l3 3-3 3M16 6v20M13 9l3-3 3 3M13 23l3 3 3-3"/></svg>
+          <div>
+            <strong>Sur-mesure total</strong>
+            <p>Tissus, teintes et dimensions : chaque pièce s'adapte au projet, pas l'inverse.</p>
+          </div>
+        </li>
+        <li class="mrd-p-arg mrd-reveal" style="--mrd-d:120ms">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="16" cy="11" r="4.5"/><path d="M7 26c1.5-5 5-7.5 9-7.5s7.5 2.5 9 7.5"/></svg>
+          <div>
+            <strong>Interlocuteur dédié</strong>
+            <p>Un seul contact, du premier échange à la livraison. Il connaît votre projet par son prénom.</p>
+          </div>
+        </li>
+        <li class="mrd-p-arg mrd-reveal" style="--mrd-d:240ms">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4l10 6-10 6-10-6zM6 16l10 6 10-6M6 21l10 6 10-6"/></svg>
+          <div>
+            <strong>Échantillons &amp; documentation</strong>
+            <p>Tissus, fiches techniques et dimensions adressés à votre agence, à la demande.</p>
+          </div>
+        </li>
+        <li class="mrd-p-arg mrd-reveal" style="--mrd-d:360ms">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10h14v11h-14zM17.5 14h5.5l3.5 4v3h-9"/><circle cx="8.5" cy="23.5" r="2"/><circle cx="22" cy="23.5" r="2"/></svg>
+          <div>
+            <strong>Livraison sur site, en gants blancs</strong>
+            <p>Installée dans la pièce prévue, à la date convenue avec votre client.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= IMAGE DE PROJET ================= -->
+  <section class="mrd-p-section">
+    <div class="mrd-p-wrap">
+      <figure class="mrd-p-figure mrd-reveal">
+        <img src="{{IMAGE_1}}" alt="Intérieur signé par un décorateur, canapé Meridian au centre de la composition" loading="lazy" decoding="async">
+      </figure>
+    </div>
+  </section>
+
+  <!-- ================= DÉROULÉ D'UN PROJET ================= -->
+  <section class="mrd-p-section" style="padding-top:0">
+    <div class="mrd-p-wrap">
+      <header class="mrd-p-steps-head mrd-p-center mrd-reveal">
+        <p class="mrd-p-eyebrow">La méthode</p>
+        <h2>Le déroulé d'un projet</h2>
+        <span class="mrd-p-rule" aria-hidden="true"></span>
+      </header>
+      <ol class="mrd-p-steps">
+        <li class="mrd-p-step mrd-reveal">
+          <span class="mrd-p-step-num" aria-hidden="true">01</span>
+          <div>
+            <h3>Le brief</h3>
+            <p>Vous nous écrivez : pièces envisagées, plans, intentions, contraintes. Votre interlocuteur dédié prend le relais.</p>
+          </div>
+        </li>
+        <li class="mrd-p-step mrd-reveal" style="--mrd-d:100ms">
+          <span class="mrd-p-step-num" aria-hidden="true">02</span>
+          <div>
+            <h3>Les échantillons</h3>
+            <p>Tissus et teintes adressés à votre agence — ou directement chez votre client, pour choisir à la lumière du lieu.</p>
+          </div>
+        </li>
+        <li class="mrd-p-step mrd-reveal" style="--mrd-d:200ms">
+          <span class="mrd-p-step-num" aria-hidden="true">03</span>
+          <div>
+            <h3>Le devis</h3>
+            <p>Configurations, dimensions, broderies : un devis précis, poste par poste, aux conditions professionnelles.</p>
+          </div>
+        </li>
+        <li class="mrd-p-step mrd-reveal" style="--mrd-d:300ms">
+          <span class="mrd-p-step-num" aria-hidden="true">04</span>
+          <div>
+            <h3>La production, suivie</h3>
+            <p>Votre commande entre à l'atelier. Vous recevez des photographies aux étapes clés — coupe, capitonnage, finitions.</p>
+          </div>
+        </li>
+        <li class="mrd-p-step mrd-reveal" style="--mrd-d:400ms">
+          <span class="mrd-p-step-num" aria-hidden="true">05</span>
+          <div>
+            <h3>La livraison</h3>
+            <p>En gants blancs, sur site, à la date convenue. Le projet se termine comme il a commencé : sans friction.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ================= FINAL CTA ================= -->
+  <section class="mrd-p-section" style="padding-top:0">
+    <div class="mrd-p-wrap">
+      <div class="mrd-p-final-panel mrd-reveal">
+        <p class="mrd-p-eyebrow">House of Meridian</p>
+        <h2>Parlons de votre projet</h2>
+        <span class="mrd-p-rule" aria-hidden="true"></span>
+        <p class="mrd-p-lead">Décrivez-nous le lieu, les pièces, le calendrier. Nous vous répondons personnellement, avec des propositions précises.</p>
+        <div class="mrd-p-final-links">
+          <a class="mrd-p-btn" href="/pages/contact">Prendre contact</a>
+          <a class="mrd-p-mail" href="mailto:contact@houseofmeridian.fr">contact@houseofmeridian.fr</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var root=document.getElementById('mrd-pros');
+  if(!root)return;
+  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Révélations : le moteur global MERIDIAN Motion gère .mrd-reveal
+     s'il est présent ; cet observateur scopé sert de garantie. */
+  var toReveal=Array.prototype.slice.call(root.querySelectorAll('.mrd-reveal'));
+  if(reduced||!('IntersectionObserver' in window)){
+    toReveal.forEach(function(el){el.classList.add('mrd-in');});
+  }else{
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('mrd-in');io.unobserve(e.target);}
+      });
+    },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+    toReveal.forEach(function(el){io.observe(el);});
+  }
+})();
+</script>
