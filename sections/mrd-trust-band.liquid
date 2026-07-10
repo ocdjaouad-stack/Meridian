@@ -1,0 +1,168 @@
+{% comment %}
+  MERIDIAN — Bandeau réassurance (sections/mrd-trust-band.liquid)
+  Section indépendante, plaçable sur n'importe quel template via le customizer.
+  Quatre piliers : icône filaire or + titre + texte, éditables.
+  Autonome : CSS scopé .mrd-tb, JS vanilla minimal, aucun asset externe.
+{% endcomment %}
+
+{% style %}
+  .mrd-tb{
+    --mrd-noir:#0B0B0D;
+    --mrd-surface:#101013;
+    --mrd-creme:#F2EDE4;
+    --mrd-gris:#9B968C;
+    --mrd-or:#C8A35F;
+    --mrd-ligne:rgba(242,237,228,.08);
+    --mrd-ease-out:cubic-bezier(.22,1,.36,1);
+    background:var(--mrd-surface);
+    color:var(--mrd-creme);
+    font-family:'Inter',sans-serif;
+    font-weight:300;
+    line-height:1.7;
+    border-top:1px solid var(--mrd-ligne);
+    border-bottom:1px solid var(--mrd-ligne);
+    -webkit-font-smoothing:antialiased;
+  }
+  .mrd-tb *,.mrd-tb *::before,.mrd-tb *::after{box-sizing:border-box;margin:0;padding:0}
+  .mrd-tb svg{display:block;max-width:100%}
+  .mrd-tb .mrd-tb-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+  .mrd-tb .mrd-tb-wrap{max-width:1320px;margin:0 auto;padding:clamp(3rem,7vh,4.5rem) clamp(1.25rem,5vw,4rem)}
+  .mrd-tb ul{list-style:none;display:grid;grid-template-columns:1fr;gap:2.5rem}
+  .mrd-tb li{text-align:center}
+  .mrd-tb li svg{width:28px;height:28px;color:var(--mrd-or);margin:0 auto 1rem}
+  .mrd-tb strong{display:block;font-weight:500;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mrd-creme);margin-bottom:.5rem}
+  .mrd-tb p{font-size:.9rem;color:var(--mrd-gris)}
+  @media(min-width:640px){.mrd-tb ul{grid-template-columns:repeat(2,1fr)}}
+  @media(min-width:1000px){.mrd-tb ul{grid-template-columns:repeat(4,1fr)}}
+
+  /* Révélations (contrat MERIDIAN Motion : .mrd-reveal → .mrd-in) */
+  .mrd-tb .mrd-reveal{opacity:0;transform:translateY(24px);transition:opacity .9s var(--mrd-ease-out),transform .9s var(--mrd-ease-out);transition-delay:var(--mrd-d,0ms)}
+  .mrd-tb .mrd-reveal.mrd-in{opacity:1;transform:none}
+
+  @media(prefers-reduced-motion:reduce){
+    .mrd-tb *,.mrd-tb *::before,.mrd-tb *::after{animation:none!important;transition:none!important}
+    .mrd-tb .mrd-reveal{opacity:1!important;transform:none!important}
+  }
+{% endstyle %}
+
+<div class="mrd-tb" data-mrd-tb>
+  <section class="mrd-tb-wrap" aria-label="Les engagements de la maison">
+    <h2 class="mrd-tb-sr">Les engagements de la maison</h2>
+    <ul>
+      <li class="mrd-reveal">
+        <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="16" cy="7" r="2.2"/><path d="M15 9 9.5 26M17 9l5.5 17M9.5 26q6.5 3 13 0"/></svg>
+        <strong>{{ section.settings.trust_1_title }}</strong>
+        <p>{{ section.settings.trust_1_text }}</p>
+      </li>
+      <li class="mrd-reveal" style="--mrd-d:120ms">
+        <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10h14v11h-14zM17.5 14h5.5l3.5 4v3h-9"/><circle cx="8.5" cy="23.5" r="2"/><circle cx="22" cy="23.5" r="2"/></svg>
+        <strong>{{ section.settings.trust_2_title }}</strong>
+        <p>{{ section.settings.trust_2_text }}</p>
+      </li>
+      <li class="mrd-reveal" style="--mrd-d:240ms">
+        <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4l9 3.5v7c0 6-4 10.5-9 13-5-2.5-9-7-9-13v-7z"/><path d="M12 15.5l3 3 5-6"/></svg>
+        <strong>{{ section.settings.trust_3_title }}</strong>
+        <p>{{ section.settings.trust_3_text }}</p>
+      </li>
+      <li class="mrd-reveal" style="--mrd-d:360ms">
+        <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4l10 6-10 6-10-6zM6 16l10 6 10-6M6 21l10 6 10-6"/></svg>
+        <strong>{{ section.settings.trust_4_title }}</strong>
+        <p>{{ section.settings.trust_4_text }}</p>
+      </li>
+    </ul>
+  </section>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function initRoot(root){
+    if(root.dataset.mrdInit)return;
+    root.dataset.mrdInit='1';
+    /* Révélations : le moteur global MERIDIAN Motion gère .mrd-reveal
+       s'il est présent ; cet observateur scopé sert de garantie. */
+    var toReveal=Array.prototype.slice.call(root.querySelectorAll('.mrd-reveal'));
+    if(reduced||!('IntersectionObserver' in window)){
+      toReveal.forEach(function(el){el.classList.add('mrd-in');});
+      return;
+    }
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('mrd-in');io.unobserve(e.target);}
+      });
+    },{threshold:.15,rootMargin:'0px 0px -8% 0px'});
+    toReveal.forEach(function(el){io.observe(el);});
+  }
+
+  function initAll(){
+    Array.prototype.slice.call(document.querySelectorAll('.mrd-tb[data-mrd-tb]')).forEach(initRoot);
+  }
+  initAll();
+  document.addEventListener('shopify:section:load',initAll);
+})();
+</script>
+
+{% schema %}
+{
+  "name": "MERIDIAN — Réassurance",
+  "tag": "section",
+  "class": "mrd-section-trust-band",
+  "settings": [
+    {
+      "type": "text",
+      "id": "trust_1_title",
+      "label": "Pilier 1 — titre",
+      "default": "Fabrication à la commande"
+    },
+    {
+      "type": "text",
+      "id": "trust_1_text",
+      "label": "Pilier 1 — texte",
+      "default": "Chaque pièce est produite pour son client."
+    },
+    {
+      "type": "text",
+      "id": "trust_2_title",
+      "label": "Pilier 2 — titre",
+      "default": "Livraison en gants blancs"
+    },
+    {
+      "type": "text",
+      "id": "trust_2_text",
+      "label": "Pilier 2 — texte",
+      "default": "Incluse, jusqu'à la pièce de votre choix."
+    },
+    {
+      "type": "text",
+      "id": "trust_3_title",
+      "label": "Pilier 3 — titre",
+      "default": "Garantie fabricant"
+    },
+    {
+      "type": "text",
+      "id": "trust_3_text",
+      "label": "Pilier 3 — texte",
+      "default": "Nos ateliers s'engagent sur la durée."
+    },
+    {
+      "type": "text",
+      "id": "trust_4_title",
+      "label": "Pilier 4 — titre",
+      "default": "Échantillons à domicile"
+    },
+    {
+      "type": "text",
+      "id": "trust_4_text",
+      "label": "Pilier 4 — texte",
+      "default": "Les tissus se choisissent à la lumière de chez vous."
+    }
+  ],
+  "presets": [
+    {
+      "name": "MERIDIAN — Réassurance"
+    }
+  ]
+}
+{% endschema %}
